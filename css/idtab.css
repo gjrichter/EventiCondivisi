@@ -1,0 +1,45 @@
+/* Style for Usual tabs */
+.usual {
+  background: #586786;
+  color:#fff;
+  border:0px solid #222;
+  margin:auto;
+}
+.usual li { list-style:none; float:left; }
+.usual ul a {
+  display:block;
+  padding:2px 6px;
+  text-decoration:none!important;
+  margin:0px;
+  padding-top:4px;
+  margin-left:0;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Verdana", sans-serif;
+  font-size: 14px;
+  color:#586786;
+  background:#FFF;
+}
+.usual ul a:hover {
+  color:#5867ff;
+  background:#FFF;
+  }
+.usual ul a.selected {
+  margin-top:2px;
+  padding-top:2px;
+  margin-bottom:0;
+  color: #586786;
+  background:#F8F8F8;
+  border-bottom:2px solid #FFF;
+  border-top:1px solid #c0c0c0;
+  border-left:1px solid #c0c0c0;
+  border-right:1px solid #c0c0c0;
+  cursor:default;
+  }
+.usual div {
+  padding:10px 10px 8px 10px;
+  *padding-top:3px;
+  *margin-top:-15px;
+  clear:left;
+  background:#F8F8F8;
+  font:10pt Georgia;
+}
+

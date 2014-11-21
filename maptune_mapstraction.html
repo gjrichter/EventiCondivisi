@@ -1,0 +1,292 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<meta charset="iso-8859-1">	
+	<title>iXmaps MapTune</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+
+	<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.4.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.4.min.css" />
+	<link rel="stylesheet" href="css/maptune.min.css" />
+	<link rel="stylesheet" href="css/custom.css" />
+	<link rel="stylesheet" href="css/mobilemap.css" />
+	<link rel="stylesheet" href="css/tooltip.css" />
+	<link rel="stylesheet" href="css/messagebox.css" />
+
+	<style type="text/css">
+		#hdr{
+			-moz-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 			rgba(0,0,0,.3) /*{global-box-shadow-color}*/ ;
+			-webkit-box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 		rgba(0,0,0,.3) /*{global-box-shadow-color}*/ ;
+			box-shadow: 0px 2px 6px /*{global-box-shadow-size}*/ 				rgba(0,0,0,.3) /*{global-box-shadow-color}*/ ;
+		}
+	</style>
+
+
+
+
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script src="js/jquery.mobile-1.4.4.min.js"></script>
+    <script src="js/jquery/plugins/jquery.getUrlParam.js"></script>
+    <script src="js/jquery/plugins/jquery.csv.js"></script>
+	<script src="js/jquery/jquery.effects.core.min.js"></script>
+	<script src="js/jquery/jquery.effects.slide.min.js"></script>
+
+	<!-- Map -->
+
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<style type="text/css">
+		.leaflet-container {
+			font: 14px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+		}
+	</style>
+	<!--[if lte IE 8]>
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+	<![endif]-->
+
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<!--
+	<script src="http://openlayers.org/api/OpenLayers.js"></script> 
+	-->
+	<script src="js/ixmaps/map_Mapstraction.js" type="text/javascript" > </script>
+	<script src="js/mxn-2.0.18/mxn.js?(googlev3, yahoo, microsoft, openlayers, leaflet)" type="text/javascript" charset="utf-8" ></script> 
+
+	<!-- mapup -->
+
+	<script src="js/ixmaps/map_api.js" type="text/javascript"></script>
+	<script src="js/ixmaps/map_up.js" type="text/javascript"></script>
+	<script src="js/ixmaps/map_feed.js" type="text/javascript"></script>
+
+	<!-- maptune api and extensions -->
+
+	<script src="js/maptune_api.js" type="text/javascript"></script>
+	<script src="js/maptune_map_ext.js" type="text/javascript"></script>
+	<script src="js/maptune.js"></script>
+
+	<!-- marker clusterer ->
+	<script src="js/ixmaps/tools/marker-clusterer.js" type="text/javascript"></script>
+	-->
+	<!-- marker declutter -->
+	<script src="js/ixmaps/tools/marker-declutter.js" type="text/javascript"></script>
+	<!-- -->
+	<!-- message box -->
+	<script src="js/ixmaps/tools/messagebox.js" type="text/javascript"></script>
+	<!-- -->
+
+	<!-- End Map -->
+
+	<!-- Initialize if standalone, if jquery mobile page, done in maptune.js -->
+	<script type="text/javascript" charset="utf-8"> 
+
+		var defaultLayerDialog = "./layer.html";
+		var defaultFeedsDialog = "./feeds.html";
+		var defaultParamFile = "./param.js";
+
+		/**
+		 * map can be 'stand alone', for example on browser page reload
+		 * so we place an on ready handler
+		 */
+
+		$(document).ready(function() {
+			  
+			// create map !!!
+			// ---------------------------------------------------------------------------------------
+			var mapUp = new ixmaps.jsapi.MapUp("map","itemlist","legend",null,"leaflet");
+			ixmaps.jsapi.setView("map");
+
+			var paramFile = $(document).getUrlParam('param');
+			$.get(paramFile?paramFile:defaultParamFile,
+				function(data){
+					if ( MapParam.defaultmap ){
+						ixmaps.jsapi.reset();
+					}
+				});
+
+			ixmaps.touchScroll("sidebar");
+			$(".leaflet-control-layers").hide();
+
+		});
+
+	</script>
+
+</head> 
+<body > 
+
+	<div data-role="page" id="feed_map" style="background:none;max-width:100%;" >
+
+		<div id="hdr" data-role="header" data-position="fixed" data-id="myHeader" data-theme="f" style="box-shadow: 0px 0px
+		0px;z-index:9999;	height:45px;">
+
+			<!-- left buttons - logo, back() -->
+			<div  style="float:left;margin-top:7px;margin-left:3px;">
+				<a href="javascript:ixmaps.jsapi.setView('next');" style="float:left;">
+					<img id="view-select-icon" style="align:center;" src="resources/ui/list_blu.png" height="32px;">
+				</a>
+			</div>
+			<!-- filter ... -->
+			<div  style="float:left;margin-left:15px;margin-top:-4px;">
+				<form id="IndicatorFilterForm" action="javascript:ixmaps.jsapi.search();" name="IndicatorFilterForm">
+					<input id="IndicatorFilterFormQuery" type="text" value=" filtro ..." style="font-size:14px;color:#aaa;width:150px;max-width:200px;height:34px;border:none;border-radius:0;" title="query map items" onkeyup="javascript:ixmaps.jsapi.search();" onblur="if(this.value=='') this.value=' filtro ...';" onfocus="if(this.value==' filtro ...') this.value='';"/>	
+				</form>
+			</div>
+			<!-- right buttons -->
+			<div style="float:right;margin-right:5px;margin-top:3px;">
+				<!--
+				<a href="javascript:ixmaps.jsapi.setMapType('road');ixmaps.jsapi.setView('map');ixmaps.jsapi.reset();" class="ui-btn ui-btn-up-c" style="float:left;">
+					<img style="align:center;" src="resources/ui/reset_blu.png" height="34px;">
+				</a>
+				<a href="javascript:maptune.selectFeedDialog('show');" class="ui-btn ui-btn-up-f" style="float:left;margin-left:10px;margin-top:4px;margin-right:10px;padding-right:10px;border-right:#aaa solid 1px;">
+					<img style="align:center;" src="resources/ui/plus.png" height="30px;">
+				</a>
+				-->
+				<a href="javascript:maptune.selectLayerDialog();" style="float:left;margin-top:4px;margin-right:3px;">
+					<img style="align:center;" src="resources/ui/menu.png" height="30px;" >
+				</a>
+			</div>
+
+		</div><!-- /header -->
+
+		<!-- content = map -->
+		<div id="content" data-role="content" style="padding:0;margin:0;" >
+
+			<!--========================================================================= 
+				sidebar
+			<!--========================================================================= -->
+
+			<div id="sidebar" data-role="content" style="padding:0;margin:0;display:none;" >
+					<div id="itemlist" style="height:93%;overflow:auto;" >
+					</div>
+				<!-- legend --> 
+					
+					<div id="sidebar-footer" style="height:40px;bottom:0px;padding-top:5px;padding-left:5px;" >
+					</div>
+			</div>
+
+
+			<!--========================================================================= 
+				map
+			<!--========================================================================= -->
+
+			<div id="map" style="padding:0;margin:0;">
+			</div>
+
+			<div id="myPopupDivBG" style="width:100%;height=100%;background:#444;opacity:0.5;">
+			</div>
+			<div id="myPopupDiv" >
+			</div>
+
+			<!--========================================================================= 
+				dialog overlays
+			<!--========================================================================= -->
+
+			<div id="layer-dialog" style="position:absolute;right:0px;top:0px;display:none;background:#f8f8f8;overflow:auto;">
+			</div>
+
+			<div id="feed-dialog" style="position:absolute;right:0px;top:0px;width:100%;height:100%;display:none;">
+				<div id="feed-dialog-div" class="dialog" style="max-width:580px;padding:0px 20px 1em 1em;background:#f8f8f8;height:inherit;">
+					<div id="feed-list" style="height:100%;overflow:auto;" >
+					</div>
+				</div>
+			</div>
+			<!--
+			<div id="myIntroDiv" style="position:absolute;left:0px;top:0px;width:100%;height:100%;pointer-events:none;opacity:0.2" >
+				<img src="./resources/help/intro.png" style="width:100%;"/>
+			</div>
+			-->
+
+		</div><!-- /content -->
+
+		<div id="ftr" data-role="footer" data-position="fixed" data-id="myHeader" data-theme="a" style="box-shadow: 0px 1px
+		4px;z-index:9999;border-bottom: #bbb solid 0px; border-left: #bbb solid 0px;	border-radius:0;height:42px;">
+
+			<!--
+			<div style="float:left;margin-left:5px;margin-top:11px;" >
+				<img src="resources/icons/MapTune.png" height="22px;" />		
+			</div>
+			-->
+			<div style="float:left;margin-left:5px;margin-top:11px;" >
+				<span id="statusline" style="font-weight:normal;font-size:0.6em;opacity:0.5;"></span>
+			</div>
+
+			<div id="timelapbuttons" style="position:absolute;right:6px;bottom:-2px;visibility:hidden;" >		
+			
+				<div style="float:left;" >
+					<div id="timelapbuttons-date" style="float:right;margin-right:-10px;margin-bottom:32px;background:none;border-radius: .7em;visibility:hidden;">
+						
+						<a href="javascript:ixmaps.timeline.moveTimeWindow(-1);" style="text-decoration:none;float:left;padding:0px;margin:0 10px 0 10px;" ><input type="button" data-icon="carat-l" data-iconpos="notext" value="Icon only"></a>
+						<div id="showtimelinedate" style="float:left;overflow:hidden;margin-top:9px;font-size:0.8em;background:#fff;padding:0.5em;border-radius: .5em;">
+						</div>
+						<a href="javascript:ixmaps.timeline.moveTimeWindow(1);" style="text-decoration:none;float:left;margin:0 10px 0 10px;" ><input type="button" data-icon="carat-r" data-iconpos="notext" value="Icon only"></a>
+					</div>
+					<br>
+					<div style="float:right;margin-right:0px;" >
+						<fieldset data-role="controlgroup" data-type="horizontal" data-theme="f" data-mini="1" >
+							<input type="radio" id="today"   name="tools" onclick="javascript:ixmaps.jsapi.setTimeScope('today')" />
+								<label for="today" title="zoom with rect" >oggi</label>
+							<input type="radio" id="week"    name="tools" onclick="javascript:ixmaps.jsapi.setTimeScope('today+7')"  />
+								<label for="week" title="pan with basemap" >+7</label>
+							<input type="radio" id="month"   name="tools" onclick="javascript:ixmaps.jsapi.setTimeScope('month')" />
+								<label for="month" title="show info of map items" >mese</label>
+							<input type="radio" id="all" name="tools" onclick="javascript:ixmaps.jsapi.setTimeScope('all')" checked="checked"   />
+								<label for="all" title="select map items with rect" >tutto</label>
+						</fieldset>
+					<!--
+						<div data-role="navbar" >
+							<ul style="height:45px;bottom:-10px;">
+								<li style="width:60px;"><a href="javascript:ixmaps.jsapi.setTimeScope('today');" data-theme="a" >oggi</a></li>
+								<li style="width:60px;"><a href="javascript:ixmaps.jsapi.setTimeScope('week');" data-theme="a" >+7</a></li>
+								<li style="width:60px;"><a href="javascript:ixmaps.jsapi.setTimeScope('month');" data-theme="a" >mese</a></li>
+								<li style="width:60px;"><a href="javascript:ixmaps.jsapi.setTimeScope('all');" data-theme="a" >tutto</a></li>
+								<!--
+								<li><a href="javascript:ixmaps.jsonapi.changeZoom(1);">+</a></li>
+								<li><a href="javascript:ixmaps.jsonapi.changeZoom(-1);">-</a></li>
+							</ul>
+						</div><!-- /navbar -->
+
+					</div>
+				</div>
+
+			</div>
+
+		</div><!-- /footer -->
+
+		<div id="footerloading" style="position:absolute;left:43%;top:45%;pointer-events:none;">
+			<p id="loading" class="ui-corner-all"
+							style="	padding:5px;
+									padding-top:30px;
+									margin:0px;
+									background:white;
+									background-image: url(resources/images/loading.gif);
+									background-repeat: no-repeat;
+									background-position: 50% 5%;
+									-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									opacity:0.8;
+									">
+									<span id="loading-message" class="ui-corner-all"
+										style="font-size:0.8em;
+										color:#666666;">loading...</span>
+			</p>
+			<div id="error" class="ui-corner-all"
+							style=" text-align:center;
+									padding:0px;
+									padding-top:-2px;
+									padding-bottom:5px;
+									padding-left:15px;
+									visibility:hidden;
+									background:white;
+									-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+									opacity:0.8;
+									">
+									<span id="error-message" style="position:relative;top:2px;font-size:1.5em;color:#666666"></span>
+			</div>
+		</div>
+
+	</div><!-- /page -->
+
+</body>
+
+</html>

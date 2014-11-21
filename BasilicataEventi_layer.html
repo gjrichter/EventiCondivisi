@@ -1,0 +1,49 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+    <meta charset="iso 8859-10">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>EasyNido map layer dialog</title> 
+
+</head> 
+<body> 
+
+	<ul id="layerlist" class="menu" style="min-width:50px;" >
+
+		<a href="javascript:ixmaps.jsapi.setMapType('road');ixmaps.jsapi.setView('map');ixmaps.jsapi.reset();maptune.selectLayerDialog('hide');" >
+
+			<li class="menu" >
+			<ul style="-webkit-padding-start:0px"><li class="menu">
+			<a href="javascript:ixmaps.jsapi.setSearchFilter('Musica');">
+			Musica</a> 
+			</li><li class="menu">
+			<a href="javascript:ixmaps.jsapi.setSearchFilter('Teatro');">
+			Teatro</a> 
+			</li><li class="menu">
+			<a href="javascript:ixmaps.jsapi.setSearchFilter('Danza');">
+			Danza</a> 
+			</li><li class="menu">
+			<a href="javascript:ixmaps.jsapi.setSearchFilter('confine|museo');">
+			Musei</a> 
+			</li><li class="menu">
+			<a href="javascript:ixmaps.jsapi.setSearchFilter('cinema|musei|museo|arte|mostre|fotografia');">
+			Cinema&amp;Arte</a> 
+			</li><li class="menu">
+			<a title="reset" href="javascript:javascript:ixmaps.jsapi.setSearchFilter('');">
+			tutto</a>
+			</li></ul></li>
+
+		<a href="javascript:ixmaps.jsapi.myPosition();" >
+			<li class="menu" >
+			la mia positione</li></a>
+
+		<a href="javascript:maptune.selectLayerDialog('hide');maptune.selectFeedDialog('show');" >
+			<li class="menu" >
+			<img style="float:right;padding:2px;margin-left:0.5em;margin-top:-6px;" src="resources/ui/plus.png" height="28px;">
+			aggiungi</li></a>
+
+	</ul>
+						
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+#banner {
+font-family: "Lucida Grande", "Lucida Sans Unicode", "Verdana", sans-serif;
+font-size: 12px;
+background: #fff;
+color: #333;
+}
+.banner a{
+font-family: "Lucida Grande", "Lucida Sans Unicode", "Verdana", sans-serif;
+font-size: 12px;
+background: #586786;
+color: #fff;
+position : relative;
+top : -0.35em;
+text-decoration: none;
+}
+
+.banner p, ul, li {
+font-size: 1em;
+margin: 0;
+padding: 0;
+}
+
+div#banner {
+position: absolute;
+left: 0px;
+top: 0px;
+width: 921px;
+background: top left no-repeat;
+padding-top: 0px;
+padding-bottom: 0px;
+}
+
+div#banner h1, div#menu h2 {
+margin: 0;
+padding: 0;
+}
+
+div#banner h1 a {
+display: block;
+width: 270px;
+height: 120px;
+}
+div#banner h1 a span, div#banner .skip {
+position: absolute;
+top: -10000px;
+left: -10000px;
+}
+
+ul#menu {
+background: #586786;
+color: #fff;
+margin: 0;
+padding: 0.4em 0em;
+}
+
+
+ul#menu li {
+display: inline;
+margin: 0em 0em;
+position: relative;
+}
+
+ul#menu h2, ul#menu h3 {
+font-size: 100%;
+font-weight: normal;
+display: inline;
+}
+
+
+ul#menu li a {
+color: #fff;
+text-decoration: none;
+padding: 0 0.5em;
+}
+
+ul#menu li a:hover {
+text-decoration: underline;
+}
+
+ul#menu li.mega a {
+padding: 0 1.2em;
+}
+
+ul#menu li.mega a:hover {
+text-decoration: underline;
+background: #e0e0e0;
+}
+
+ul#menu li.mega h2 a:hover {
+text-decoration: none;
+background: #8897b6;
+padding-bottom: 4px;
+padding-top: 2px;
+}
+
+ul#menu div {
+margin-top: 7px;
+display: none;
+}
+
+ul#menu li.mega div {
+border: 1px solid #ddd;
+width: 18em;
+position: absolute;
+top: 13px;
+left: 0em;
+padding: 1.3em;
+background: #ffffff;
+color: #586786;
+
+/* big shadow */
+-moz-box-shadow: 2px 2px 10px #888;
+-webkit-box-shadow: 2px 2px 10px #888;
+box-shadow: 2px 2px 10px #888;
+
+/* small shadow */
+-moz-box-shadow: -1px 1px 1px #ccc;
+-webkit-box-shadow: 0 1px 5px #ccc;
+box-shadow: 0 1px 5px #ccc;
+}
+
+ul#menu li.hovering div {
+display: block;
+}
+
+ul#menu li.mega div a {
+color: #586786;
+padding: 0;
+background-image: none;
+text-decoration: underline;
+}
+
+ul#menu li div a.more {
+color: #390;
+font-weight: bold;
+}
+
+
+ul#menu div h3 {
+color: #555;
+font-weight: bold;
+font-size: 1.4em;
+}
+ul#menu div p {
+margin: 0 0 0.8em 0;
+padding: 0;
+}
+.mega {
+color: #555;
+padding: 0;
+background-image: none;
+}
