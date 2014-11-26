@@ -135,7 +135,7 @@ Mapstraction: {
 
     setZoom: function(zoom) {
         var map = this.maps[this.api];
-        map.setZoom(zoom,{animate:false});
+        map.setZoom(zoom,{animate:true});
     },
     
     getZoom: function() {
@@ -267,7 +267,7 @@ Marker: {
         }
 		// GR 17.11.2014
         thisIcon = thisIcon.extend({
-             options: {popupAnchor: new L.Point(0,-20)}
+             options: {popupAnchor: new L.Point(0,-25)}
             });
 
         var iconObj = new thisIcon();

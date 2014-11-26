@@ -25,14 +25,11 @@
 
 	__init = function(){
 
-		_TRACE("__init ------->");
-
 		maptune.addFeedLayer('./data/collection.js',{
 			type:'data',
 			format:'json',
 			name:'Collection',
 			flag:'collapsed'});
-
 
 		maptune.addFeedLayer('http://goo.gl/Fo9jnt',{
 			type:'csv',

@@ -3,7 +3,7 @@
   <head>
     <meta charset="iso-8957">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="assets/img/favicon.png">
@@ -16,12 +16,6 @@
     <!-- Custom styles for this template -->
     <link href="assets/css/main.css" rel="stylesheet">
 
-    <!-- Fonts from Google Fonts -->
-	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
- 
-	<!-- styles --> 
-	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-
 	<style rel="stylesheet">
 		.leaflet-container label{
 			font-family: 'Lato', sans-serif;
@@ -33,6 +27,20 @@
 			padding:0;
 
 		}
+		.leaflet-container a.leaflet-popup-close-button {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 4px 4px 0 0;
+			text-align: center;
+			width: 20px;
+			height: 23px;
+			font: 20px/14px Tahoma, Verdana, sans-serif;
+			color: #c3c3c3;
+			text-decoration: none;
+			font-weight: bold;
+			background: transparent;
+			}
 
 code {
 	text-align:left;
@@ -50,16 +58,10 @@ code {
 	</style>
 
 	<link media="screen" href="css/anyfeedmap.css" rel="stylesheet" type="text/css" />
-	<link media="print" href="css/anyfeedmap_print.css" rel="stylesheet" type="text/css" />
+	<link media="print"  href="css/anyfeedmap_print.css" rel="stylesheet" type="text/css" />
 
-	<link media="screen" href="css/tooltip.css" rel="stylesheet" type="text/css" />
 	<link media="screen" href="css/messagebox.css" rel="stylesheet" type="text/css" />
-	<link media="screen" href="css/idtab.css" rel="stylesheet" type="text/css" /> 
-	<link media="screen" href="css/form.css" rel="stylesheet" type="text/css" /> 
-	<link media="print" href="css/idtab_print.css" rel="stylesheet" type="text/css" /> 
-
 	<link media="screen" href="css/layerlist.css" rel="stylesheet" type="text/css" /> 
-	<link media="screen" href="css/date.css" rel="stylesheet" type="text/css" /> 
 
 	<!--[if lte IE 8]>
 		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
@@ -86,12 +88,29 @@ code {
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#"><b>MapTune</b></a>
-		  <a class="navbar-brand" href="javascript:ixmaps.jsapi.toggleLayerType('Collection');">La mia Mappa</a>
+		  <a id="header-collection-switch" class="navbar-brand" href="javascript:__switchCollection($(this));" style="color:#444;">La mia Mappa</a>
 		</div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right scrollclass">
-            <li><a href="#info">x la prima volta ?</a></li>
-          </ul>
+			<ul class="nav navbar-nav navbar-right scrollclass">
+			<li><a href="#info">x la prima volta ?</a></li>
+			</ul>
+			<div id="filter-navbar" class="input-group input-group-lg pull-left" style="margin-right:0.3em;z-index:999;display:none">
+				<form id="IndicatorFilterFormH" role="form" action="javascript:ixmaps.jsapi.search();" name="IndicatorFilterForm">
+				  <input id="query" class="form-control form-control-lg " placeholder="filter" title="define filter" onkeyup="javascript:ixmaps.jsapi.search();"/>	
+				</form>  
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+					<ul class="dropdown-menu dropdown-menu-right" role="menu">
+					  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Musica')">Musica</a></li>
+					  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Teatro')">Teatro</a></li>
+					  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Danza')">Danza</a></li>
+					  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Cinema')">Cinema</a></li>
+					  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Sport')">Sport</a></li>
+					  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('cinema|musei|museo|arte|mostre|fotografia')">Cultura</a></li>
+					  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('')">tutto</a></li>
+					</ul>
+				</div><!-- /btn-group -->
+			</div><!-- /input-group -->
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -100,7 +119,52 @@ code {
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6">
-					<div style="height:5em">@nbsp;</div>
+					<div style="height:4em">&nbsp;</div>
+				</div><!-- /col-lg-6 -->
+			</div><!-- /row -->
+		</div><!-- /container -->
+	</div><!-- /headerwrap -->
+
+	<div id="headerwrap3" style="display:none">
+		<div class="container" >
+			<div id="headerwrap3-row" class="row" >
+				<div class="col-lg-10">
+					<div class="input-group input-group-lg pull-left" style="margin-right:0.3em;z-index:999;">
+						<form id="IndicatorFilterForm" role="form" action="javascript:ixmaps.jsapi.search();" name="IndicatorFilterForm">
+						  <input id="query" class="form-control form-control-lg " placeholder="filter" title="define filter" onkeyup="javascript:ixmaps.jsapi.search();"/>	
+						</form>  
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+							<ul class="dropdown-menu dropdown-menu-right" role="menu">
+							  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Musica')">Musica</a></li>
+							  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Teatro')">Teatro</a></li>
+							  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Danza')">Danza</a></li>
+							  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Cinema')">Cinema</a></li>
+							  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Sport')">Sport</a></li>
+							  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('cinema|musei|museo|arte|mostre|fotografia')">Cultura</a></li>
+							  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('')">tutto</a></li>
+							</ul>
+						</div><!-- /btn-group -->
+					</div><!-- /input-group -->
+					<div id="timelapbuttons" data-toggle="buttons" style="visibility:hidden;float:left;pointer-events:all;z-index:999">
+						<label class="btn btn-lg btn-custom active" id="time-today" onclick="javascript:ixmaps.jsapi.setTimeScope('today')">
+						<input type="radio" name="options" id="today" autocomplete="off"  checked>oggi
+						</label>
+						<label class="btn btn-lg btn-custom" id="time-today+7" onclick="javascript:ixmaps.jsapi.setTimeScope('today+7')">
+						<input type="radio" name="options" id="today+7" autocomplete="off" >+7
+						</label>
+						<label class="btn btn-lg btn-custom" id="time-month" onclick="javascript:ixmaps.jsapi.setTimeScope('month')">
+						<input type="radio" name="options" id="month" autocomplete="off" >mese
+						</label>
+						<label class="btn btn-lg btn-custom" id="time-all" onclick="javascript:ixmaps.jsapi.setTimeScope('all')">
+						<input type="radio" name="options" id="all" autocomplete="off" >tutto
+						</label>
+					</div>
+					<div id="timelapbuttons-date" class="btn-group btn-group-lg" style="visibility:hidden;float:left;pointer-events:all;z-index:998">
+						<label class="btn btn-default btn-lg" title="time -" onclick="javascript:ixmaps.timeline.moveTimeWindow(-1);" style="z-index:998">-</label>
+						<label class="btn btn-default btn-lg" title="time +" onclick="javascript:ixmaps.timeline.moveTimeWindow(1);" style="z-index:998">+</label>
+						<label class="btn btn-default btn-lg" id="showtimelinedate" style="z-index:999">
+					</div>
 				</div><!-- /col-lg-6 -->
 				
 			</div><!-- /row -->
@@ -117,53 +181,7 @@ code {
 		</div><!-- /row -->
 		<hr>
 	</div><!-- /container -->
-	<div id="dynamic-content" class="container" style="display:none">
-		<div id="toolbar" class="row">
-			<span class="col-lg-3 col-md-3 col-xs-6" >
-				<div class="input-group input-group-lg" style="margin-bottom:1em;z-index:999">
-					<form id="IndicatorFilterForm" role="form" action="javascript:ixmaps.jsapi.search();" name="IndicatorFilterForm">
-					  <input id="query" class="form-control form-control-lg " placeholder="filter" title="define filter" onkeyup="javascript:ixmaps.jsapi.search();"/>	
-					</form>  
-					<div class="input-group-btn">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-						<ul class="dropdown-menu dropdown-menu-right" role="menu">
-						  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Musica')">Musica</a></li>
-						  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Teatro')">Teatro</a></li>
-						  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Danza')">Danza</a></li>
-						  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Cinema')">Cinema</a></li>
-						  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('Sport')">Sport</a></li>
-						  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('cinema|musei|museo|arte|mostre|fotografia')">Cultura</a></li>
-						  <li><a href="javascript:ixmaps.jsapi.setSearchFilter('')">tutto</a></li>
-						</ul>
-					</div><!-- /btn-group -->
-				</div><!-- /input-group -->
-			</span><!-- /.col-lg-3 -->
-
-			<span class="col-lg-8 col-md-8 col-xs-12" style="margin-bottom:1em;">
-				<div id="timelapbuttons" class="btn-group btn-group-lg" data-toggle="buttons" style="visibility:hidden;pointer-events:all;z-index:999">
-					<label class="btn btn-default active" id="time-today" onclick="javascript:ixmaps.jsapi.setTimeScope('today')">
-					<input type="radio" name="options" id="today" autocomplete="off"  checked> oggi
-					</label>
-					<label class="btn btn-default" id="time-today+7" onclick="javascript:ixmaps.jsapi.setTimeScope('today+7')">
-					<input type="radio" name="options" id="today+7" autocomplete="off" > oggi + 7
-					</label>
-					<label class="btn btn-default" id="time-month" onclick="javascript:ixmaps.jsapi.setTimeScope('month')">
-					<input type="radio" name="options" id="month" autocomplete="off" > mese
-					</label>
-					<label class="btn btn-default" id="time-all" onclick="javascript:ixmaps.jsapi.setTimeScope('all')">
-					<input type="radio" name="options" id="all" autocomplete="off" > tutto
-					</label>
-				</div>
-				&nbsp;
-				<div id="timelapbuttons-date" class="btn-group btn-group-lg" style="visibility:hidden;pointer-events:all;z-index:999">
-					<label class="btn btn-default" title="time -" onclick="javascript:ixmaps.timeline.moveTimeWindow(-1);" style="z-index:999">-</label>
-					<label class="btn btn-default" title="time +" onclick="javascript:ixmaps.timeline.moveTimeWindow(1);" style="z-index:999">+</label>
-					<label class="btn btn-default" id="showtimelinedate" style="z-index:999">
-				</div>
-			</span>
-
-		</div>
-
+	<div id="dynamic-content" class="container" style="display:none;flow:left;">
 		<div class="row">
 			<div class="col-lg-12 ">
 				<div id="map" >
@@ -175,9 +193,9 @@ code {
 
 					<div id="sidebar-content" role="tabpanel" class="col-lg-5 col-md-6 col-xs-5" style="height:600px;overflow:auto;margin:0;padding:0em 0.5em">
 
-						<div style="float:right;margin-top:0.5em">
+						<div style="margin-top:0.5em;float:right">
 						  <!-- Nav tabs -->
-						  <ul id="map-nav" class="nav nav-pills nav-stacked" role="tablist" style="float:right">
+						  <ul id="map-nav" class="nav nav-pills nav-pills-xs nav-stacked " role="tablist" style="">
 							<li role="presentation" class="active">
 								<a id="list-pill" href="#itemlist-pane" aria-controls="itemlist-pane" role="tab" data-toggle="tab" onclick="javascript:ixmaps.jsapi.toggleLayerType('Map');"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
 							</li>
@@ -190,8 +208,11 @@ code {
 							<li role="presentation">
 								<a title="show collection" onclick="javascript:ixmaps.jsapi.reset();" style="z-index:999"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></a>
 							</li>
-							<li role="presentation">
+							<li id="fullscreen-pill" role="presentation">
 								<a title="show collection" onclick="javascript:ixmaps.setView('map');" style="z-index:999"><span id="view-icon" class="glyphicon glyphicon-resize-full" aria-hidden="true"></span></a>
+							</li>
+							<li role="presentation">
+								<a title="show collection" onclick="javascript:ixmaps.jsapi.zoomToLayer();" style="z-index:999"><span id="view-icon" class="glyphicon glyphicon-globe" aria-hidden="true"></span></a>
 							</li>
 						  </ul>
 						</div>
@@ -223,6 +244,25 @@ code {
 
 		</div><!-- /row -->
 		
+		<div id="list-nav-bottom" class="row">
+			<div class="col-lg-12 ">
+				<div style="margin-top:0.5em;float:left">
+				  <!-- Nav tabs -->
+				  <ul id="map-nav" class="nav nav-pills nav-pills-xs" role="tablist" style="">
+					<li role="presentation" >
+						<a id="list-pill" href="#itemlist-pane" aria-controls="itemlist-pane" role="tab" data-toggle="tab" onclick="javascript:ixmaps.jsapi.setListContent(null,'none');"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+					</li>
+					<li role="presentation" >
+						<a id="list-pill" href="#itemlist-pane" aria-controls="itemlist-pane" role="tab" data-toggle="tab" onclick="javascript:ixmaps.jsapi.setListContent(null,'info');"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></a>
+					</li>
+					<li role="presentation" >
+						<a id="list-pill" href="#itemlist-pane" aria-controls="itemlist-pane" role="tab" data-toggle="tab" onclick="javascript:ixmaps.jsapi.setListContent(null,'gallery');"><span class="glyphicon glyphicon-th" aria-hidden="true"></span></a>
+					</li>
+				  </ul>
+				</div>
+			</div><!-- /col -->
+		</div><!-- /row -->
+
 	</div><!-- /container -->
 	
 	<div id="info" class="container">
@@ -355,7 +395,7 @@ code {
 		popups and helper
 	<!--========================================================================= -->
 
-	<div id="footerloading" style="position:absolute;top:50%;left:27%;pointer-events:none;z-index:999">
+	<div id="footer-loading" style="position:absolute;top:50%;left:45%;pointer-events:none;z-index:999">
 		<p id="loading" class="ui-corner-all"
 						style=" position:relative;
 								top:0px;
@@ -407,23 +447,28 @@ code {
 	</div>
 
 
-    <!-- Bootstrap core JavaScript
+    <!-- core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery-1.10.2.min.js"></script>
+
+	<!-- Map -->
+	<link rel="stylesheet" href="js/leaflet-0.7.3/leaflet.css" />
+
+	<script src="js/leaflet-0.7.3/leaflet.js"></script>
+	<script src="js/ixmaps/map_Mapstraction.js" type="text/javascript" > </script>
+	<script src="js/mxn-2.0.18/mxn.js?(leaflet)" type="text/javascript" charset="utf-8" ></script> 
+	<!-- -->
+
+	<!-- Fonts from Google Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+	
+	<script src="assets/js/jquery-1.10.2.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/jquery.easing.min.js"></script>
 
 	<!-- ui -->
     <script src = "js/jquery/plugins/jquery.getUrlParam.js"></script>
     <script src = "js/jquery/plugins/jquery.csv.js"></script>
-
-	<!-- Mapstraction -->
-	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-
-	<script src="js/ixmaps/map_Mapstraction.js" type="text/javascript" > </script>
-	<script src="js/mxn-2.0.18/mxn.js?(leaflet)" type="text/javascript" charset="utf-8" ></script> 
-	<!-- -->
 
 	<script src="js/ixmaps/tools/messagebox.js" type="text/javascript"></script>
 
@@ -432,6 +477,7 @@ code {
 	<script src="js/ixmaps/map_up.js" type="text/javascript"></script>
 	<script src="js/ixmaps/map_feed.js?()" type="text/javascript"></script>
 
+	<!-- maptune -->
 	<script src="js/maptune.js" type="text/javascript"></script>
 	<script src="js/maptune_map_ext.js" type="text/javascript"></script>
 
@@ -566,6 +612,10 @@ code {
 
 	});
 
+	// ==================================================
+	// extend map ( over sidebar ) 
+	// ==================================================
+
 	var __actualView = null;
 	ixmaps.setView = function(szView){
 
@@ -619,38 +669,197 @@ code {
 		$('#time-'+szFlag).button('toggle');
 	};
 
+	ixmaps.jsapi.onWindowResize = function(){
+		__normalscreen();
+	};
+	ixmaps.jsapi.setView = function(szMode){
+		alert(szMode);
+	}
+	ixmaps.jsapi.forceMap = function(){
+	   $('html, body').stop().animate({
+		 scrollTop: 50
+       }, 250, 'easeInOutQuad');
+
+	}
+
+	// ==================================================
+	// make all reactive adaptions to classes and styles 
+	// ==================================================
+
 	__normalscreen = function(){
 
 		var width = $(window).innerWidth();
 		var height = $(window).innerHeight();
+		var nHeader = 0;
+
+		// reset some vars to default
+		// ---------------------------
+		$("#headerwrap3").show();
+		$("#headerwrap3").css("margin-bottom","0.5em");
+		$("#headerwrap3").css("margin-top","0em");
+		$(".navbar-fixed-top").show();
+		$("#headerwrap2").show();
+		$(".form-control").css("height","46px");
+		$("#fullscreen-pill").show();
+		$("#list-nav-bottom").hide();
 
 		if ( width < 1024 ){
 			
+			// small screens
+			// -------------	
+			
 			$("#toolbar").hide();
 
-			$("#map-pane").attr("class","col-sx-10");
-			$("#map-content").height(height*0.65);
-			$("#map-nav").hide();
-			$("#map-nav").removeClass("nav-stacked");
-			$(".leaflet-control-layers").hide();
+			// small nav-bar icons
 
-			$("#sidebar-content").attr("class","col-sx-10");
-			$("#sidebar-content").css("padding","0px");
-			$("#sidebar-content").height(height*0.5+10);
-			$("#itemlist").height(height*0.5);
+			$(".btn-lg").removeClass("btn-lg").addClass("btn-sm");
+			$(".btn-group-lg").removeClass("btn-group-lg").addClass("btn-group-sm");
+			$(".input-group-lg").removeClass("input-group-lg").addClass("input-group-sm");
+			$(".form-control-lg").removeClass("form-control-lg").addClass("form-control-xs");
+			$("#timelapbuttons-date").removeClass("btn-group-sm").addClass("btn-group-lg");
+
+			$(".form-control").css("height","30px");
+
+			// + - timeselection within map
+
+			$("#timelapbuttons-date").css("margin-top","0.8em");
+			$("#timelapbuttons-date").css("margin-left","0.5em");
+			$("#timelapbuttons-date").css("margin-bottom","-5em");
+			$("#headerwrap3-row").css("width","500px");
+
+			// if rotated in portrait or very small width
+
+			if ( height > width || width < 600 ){
+
+				// portrait mode	
+				// ---------------------------------------
+
+				// map width full
+				$("#map-pane").attr("class","col-sx-10");
+
+				// content buttons horizontal in between
+				$("#map-nav").removeClass("nav-stacked");
+				$("#map-nav").css("margin-top","0.5em");
+				$("#map-nav").css("margin-bottom","0.5em");
+				$("#map-nav").css("margin-left","0em");
+				$("#map-nav").parent().css("float","");
+
+				$("#fullscreen-pill").hide();
+				$("#list-nav-bottom").show();
+
+				// sidebar width full
+				$("#sidebar-content").attr("class","col-sx-10");
+				$("#sidebar-content").css("padding","0px");
+
+				// other
+				$(".leaflet-control-layers").hide();
+				$(".input-group").css("width","7em");
+
+				$("#footer-loading").css("left",width/2+"px");
+
+				nHeader = $("#headerwrap3 .container").height() + 30 + $(".navbar").height();
+
+			}else{
+
+				// landscape mode	
+				// -----------------------------------------
+				// map width half
+				$("#map-pane").attr("class","col-lg-6 col-md-6 col-xs-7");
+
+				// sidebar width half
+				$("#sidebar-content").attr("class","col-lg-5 col-md-6 col-xs-5");
+				$("#sidebar-content").css("padding","0px");
+
+				// content buttons vertical on the right
+				$("#map-nav").addClass("nav-stacked");
+				$("#map-nav").css("margin-top","-0.5em");
+				$("#map-nav").css("margin-bottom","0.5em");
+				$("#map-nav").css("margin-left","0.5em");
+				$("#map-nav").parent().css("float","right");
+
+				// other
+
+				$(".leaflet-control-layers").show();
+				$(".input-group").css("width","11em");
+
+				$("#footer-loading").css("left",width/3.5+"px");
+
+				nHeader = $("#headerwrap3 .container").height() + 30 + $(".navbar").height();
+			}
+
+			// in both cases, if screen height small, hide header 
+			// --------------------------------------------------
+			if ( height < (height>width?400:500) ){
+
+				$(".navbar-fixed-top").hide();
+				$("#headerwrap2").hide();
+				$("#headerwrap3").css("margin-top","-2em");
+
+				nHeader = $("#headerwrap3 .container").height() - 15;
+			}
 
 		}else{
-			var nHeader = 170;
-			$("#map-content").height(height-nHeader);
-			$("#sidebar-content").height(height-nHeader);
-			$("#itemlist").height(height-nHeader-5);
+
+			// big  screens
+			// -------------
+			$("#toolbar").show();
+
+			// big nav-bar icons
+			//
+			$(".btn-sm").removeClass("btn-sm").addClass("btn-lg");
+			$(".btn-group-sm").removeClass("btn-group-sm").addClass("btn-group-lg");
+			$(".input-group-sm").removeClass("input-group-sm").addClass("input-group-lg");
+			$(".form-control-xs").removeClass("form-control-xs").addClass("form-control-lg");
+			$("#timelapbuttons-date").removeClass("btn-group-sm").addClass("btn-group-lg");
+
+			// + - timeselection inline
+
+			$("#timelapbuttons-date").css("margin-top","0em");
+			$("#timelapbuttons-date").css("margin-bottom","0em");
+			$("#headerwrap3-row").css("width","100%");
+
+			// landscape mode
+			//			
+			$("#map-pane").attr("class","col-lg-7 col-md-6 col-xs-7");
+
+			$("#map-nav").addClass("nav-stacked");
+			$("#map-nav").css("margin-top","-0.5em");
+			$("#map-nav").css("margin-bottom","0.5em");
+			$("#map-nav").css("margin-left","0.5em");
+			$("#map-nav").parent().css("float","right");
+
+			$("#sidebar-content").attr("class","col-lg-5 col-md-6 col-xs-5");
+			$("#sidebar-content").css("padding","0px");
+
+			$(".input-group").css("width","11em");
+			$(".leaflet-control-layers").show();
+			$("#footer-loading").css("left",width/3.5+"px");
+
+			nHeader = $("#headerwrap3 .container").height() + 50 + $(".navbar").height();
 		}
 
+		// finally set the height of map/sidebar  
+		// -------------------------------------------
+		$("#map-content").height(height-nHeader);
+		$("#sidebar-content").height(height-nHeader);
+		$("#itemlist").height(height-nHeader-5);
+
+		// remove placeholder and show it all ( only important on initialization )  
+		// -----------------------------------------------------------------------
 		$("#dynamic-placeholder").hide();
 		$("#dynamic-content").show();
+
+		// trigger map api to adapt to the new width and height !!  
+		// -------------------------------------------------------
 		ixmaps.jsapi.checkResize();
 
-	}
+	};
+
+	__switchCollection = function(element){
+		var success = ixmaps.jsapi.toggleLayerType('Collection');
+		$("#header-collection-switch").css("color",success?"white":"#444");
+	};
+
 </script>
 
   </body>

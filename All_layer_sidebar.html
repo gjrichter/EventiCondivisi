@@ -3,29 +3,36 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<title>Feeds</title>
-
+	<link rel="stylesheet" href="css/layerlist.css" />
 
 </head>
 
-<body style="align:center" style="overflow:scroll;" >
+<body style="align:center"  >
 
 	<div id="layertab">
-		<div id="layerlist" style="overflow:scroll;">
-		<img style="margin-top:-5px;margin-bottom:-8px;" alt="mill" src="resources/images/arrow-left.png" height="28px"
-		title="aggiungere punti clickando sui nomi" />
-		<a href="javascript:ixmaps.jsapi.reset();" ><img style="float:right;margin-top:-5px;margin-bottom:-8px;" alt="mill" src="resources/ui/reset_blu.png" height="28px"
-		title="aggiungere punti clickando sui nomi" /></a>
-		<h2>add Data Feed
-		</h2> 
+		<div id="layerlist" >
 
-			<div id="feedlist" >
+			<div id="feedlist">
+
+				<div id="feedlist-header">
+					<div style="margin-top:5px;">
+						<img alt="mill" src="resources/images/arrow-left.png" height="36px"
+						title="aggiungere punti clickando sui nomi" />
+						<a href="javascript:ixmaps.jsapi.reset();" ><img style="float:right;margin-right:2em;" alt="mill" src="resources/ui/reset_blu.png" height="32px"
+						title="resettare" /></a>
+					</div>
+					<h2>add Data Feed
+					</h2> 
+				</div>
+
+				<div id="feedlist-list" >
 
 				<h3>
 					Open Data Matera
 				</h3> 
 
 
-				<span>layer realizzati con dati publici del Comune di Matera</span>
+				<span>layer dei dati publici del Comune di Matera</span>
 				<div class="varicolumn">
 				<ul><li>
 					<a href="javascript:maptune.addFeedLayer('http://dati.comune.matera.it/storage/f/2013-09-12T17%3A44%3A30.724Z/elencofarmacie-settembre2013.kml',{
@@ -62,19 +69,7 @@
 								markerImage : 'resources/icons/default/default_green.png',
 								smallImage :  'resources/icons/default/default-small_green.png',
 								markerImageType : 'png'}
-						});" >Erboristerie</a> ,
-					<span class="description"></span>
-					<a href="javascript:maptune.addFeedLayer('http://dati.comune.matera.it/storage/f/2013-09-18T08%3A37%3A46.773Z/elenco-ricettivita-ago2013.kml',{
-						type:'kml',
-						format:'xml',
-						flag:'open|showinfo|zoomto',
-						title:'Ricettivita',
-						layer:{	name:'Ricettivita',
-								markerType:'custom',
-								markerImage : 'resources/icons/default/default_red.png',
-								smallImage :  'resources/icons/default/default-small_red.png',
-								markerImageType : 'png'}
-						});" >Ricettivita</a>
+						});" >Erboristerie</a> 
 					<span class="description"></span>
 
 				</li><li>
@@ -181,13 +176,6 @@
 						title:'ZTL - APU'
 						});" >ZTL - APU (kml)</a>
 					<span class="description">rappresentazione cartografica con colori</span>,
-					<a href="javascript:maptune.addFeedLayer('http://dati.comune.matera.it/storage/f/2013-10-16T14%3A30%3A30.247Z/ztl-apu-matera.json',{
-						type:'GeoJson',
-						format:'json',
-						flag:'closed|noinfo|zoomto',
-						title:'ZTL - APU'
-						});" >ZTL - APU (geojson)</a>
-					<span class="description">rappresentazione semplice</span>
 
 				</li><li>
 
@@ -221,6 +209,9 @@
 						format:'json',
 						flag:'closed|noinfo|zoomto',
 						title:'Suono della Clava',
+v						parser:{
+								title: 'TITOLO'
+						},
 						layer:{	name:'Suono della Clava',
 								description:'Mappatura beni immateriali',
 								markerType:'custom',
@@ -248,7 +239,7 @@
 								markerImage : 'resources/icons/default/default_blue.png',
 								smallImage : 'resources/icons/default/default-small_blue.png',
 								markerImageType : 'png'}
-						});" >Beni culturali Comune di Matera  (csv)</a>
+						});" >Beni culturali del Comune di Matera  (csv)</a>
 					<span class="description"></span>
 				</li><li>
 
@@ -323,29 +314,6 @@
 					<span class="description"></span>
 					</li><li>
 
-					<a href="javascript:maptune.addFeedLayer('http://goo.gl/Fo9jnt',{
-						type:'BasilicataEvents',
-						format:'csv',
-						flag:'closed|noinfo|zoomto',
-						title:'Eventi Condivisi',
-						parser: 
-							{
-							title: 'Nome evento',
-							lat:   'lat',
-							lon:   'lng',
-							timeStart: 'Data inizio',
-							timeEnd:  'Data fine',
-							label: 'true'
-							},
-						layer:{	name:'Eventi Condivisi',
-								description:'Mappatura beni immateriali',
-								markerType:'custom',
-								markerImage : 'resources/icons/default/default_red.png',
-								smallImage : 'resources/icons/default/default-small_red.png',
-								markerImageType : 'png'}
-						});" >Eventi Condivisi  (plugin)</a>
-					<span class="description"></span>
-					</li><li>
 
 					<a href="javascript:maptune.addFeedLayer('http://dati.comune.matera.it/storage/f/2014-11-04T10%3A10%3A31.247Z/elenco-lavori-pubblici-affidati.geojson',{
 						type:'GeoJson',
@@ -394,7 +362,7 @@
 								smallImage : 'resources/icons/map-icons-collection/bikerental.png',
 								markerImageType : 'png'
 								}
-						});" >Bike sharing</a>
+						});" >Punti di Bike sharing</a>
 					<span class="description"></span>
 
 
@@ -403,31 +371,6 @@
 				</li></ul>
 				</div>
 
-				<h3>
-					Open Data - Provincia Autonoma di Trento
-				</h3> 
-				<span class="description" style="padding-left:1px;">Dati pubblicati dal portale 'OPENdata TRENTINO' con licenza: "Open Data". La pubblicazione è basata sulla piattaforma open-source <img src="./resources/images/ckan.jpg" style="height:18px;"/>CKAN.</span>
-				<div class="varicolumn">
-				<ul><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://public.ixmaps.com/assets/maps/layer/jsonp/p1.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'Beni culturali ed ambientali',
-						 flag:'zoomto'
-					});" >
-					Beni culturali ed ambientali<span style="font-size:8px;"></span></a>
-					<span class="description">Elementi puntuali che individuano sul territorio gli beni culturali, architettonici e ambientali. Dataset scaricato in formato shapefile pubblicato da OPENdata TRENTINO, licenza: Open Data <a href="http://www.dati.trentino.it/">(link al portale)</a></span>
-					</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://public.ixmaps.com/assets/maps/layer/jsonp/p2.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'Piste ciclabili',
-						 flag:'zoomto'
-						});" >
-					Piste ciclabili<span style="font-size:8px;"></span></a>
-					<span class="description">Elementi lineari che individuano sul territorio le piste ciclabili. Dataset scaricato in formato shapefile pubblicato da OPENdata TRENTINO, licenza: Open Data <a href="http://www.dati.trentino.it/">(link al portale)</a></span>
-				</li></ul>
-				</div>
 
 				<h3>
 					Open Data - Torino
@@ -445,158 +388,6 @@
 				</div>
 
 
-				<h3>
-					Open Data - Regione Lombardia
-				</h3> 
-				<span class="description" style="padding-left:1px;">Dataset pubblicati dalla Regione Lombardia con licenza:  Italian Open Data License v.2.0 (IODL 2.0). La pubblicazione è basata sulla "Social Data Platform <img src="./resources/images/socrata.jpg" style="height:18px;"/><strong>Socrata </strong></span>
-				<div class="varicolumn">
-				<ul><li>
-					<a href="javascript:maptune.addFeedLayer('https://dati.lombardia.it/api/views/jayn-vsw3/rows.xml',{
-						type:'Socrata',
-						format:'xml',
-						flag:'zoomto',
-						title:'Mercati storici',
-						layer:{	name:'Mercati storici',
-								markerType:'custom',
-								markerImage:'resources/icons/map-icons-collection/farmstand.png',
-								smallImage:'resources/icons/default/default-small_berry.png',
-								markerImageType:'png',
-								titlePath:'properties.comune+properties.giorno',
-								initListState:'expanded',
-								sort:'true'}
-						});" >
-					Mercati storici<span style="font-size:8px;"></span></a><br>
-					</li><li>
-					<a href="javascript:maptune.addFeedLayer('https://dati.lombardia.it/api/views/mtrf-sqvd/rows.xml',{
-						type:'Socrata',
-						format:'xml',
-						flag:'zoomto',
-						title:'Erogazione Metano',
-						parser:{'title':'bandiera'},
-						layer:{	name:'Erogazione Metano',
-								markerType:'custom',
-								markerImage:'resources/icons/map-icons-collection/metano.png',
-								smallImage:'resources/icons/default/default-small_turque.png',
-								markerImageType:'png',
-								initListState:'expanded',
-								sort:'true'}
-						});" >
-					Erogazione Metano<span style="font-size:8px;"></span></a><br>
-					</li><li>
-					<a href="javascript:maptune.addFeedLayer('https://dati.lombardia.it/api/views/3b7c-6kcq/rows.xml',{
-						type:'Socrata',
-						format:'xml',
-						flag:'zoomto',
-						title:'Ostelli della Giov.',
-						parser:{'title':'denominazione'},
-						layer:{	name:'Ostelli della Giov.',
-								markerType:'custom',
-								markerImage:'resources/icons/map-icons-collection/youthhostel.png',
-								smallImage:'resources/icons/default/default-small_darkgreen.png',
-								markerImageType:'png',
-								initListState:'expanded',
-								sort:'true'}
-						});" >
-					Ostelli della Gioventù<span style="font-size:8px;"></span></a><br>
-					</li><li>
-					<a href="javascript:maptune.addFeedLayer('https://dati.lombardia.it/api/views/bye6-kfh2/rows.xml',{
-						type:'Socrata',
-						format:'xml',
-						flag:'zoomto',
-						title:'Negozi e Locali Storici',
-						parser:{'title':'denom_impres'},
-						layer:{	name:'Negozi e Locali Storici',
-								markerType:'custom',
-								markerImage:'resources/icons/map-icons-collection/departmentstore.png',
-								smallImage:'resources/icons/default/default-small_berry.png',
-								markerImageType:'png',
-								initListState:'expanded',
-								sort:'true'}
-						});" >
-					Negozi e Locali Storici<span style="font-size:8px;"></span></a><br>
-					</li><li>
-					<a href="javascript:maptune.addFeedLayer('https://dati.lombardia.it/api/views/u8qe-3an8/rows.xml',{
-						type:'Socrata',
-						format:'xml',
-						flag:'zoomto',
-						title:'Fattorie didattiche',
-						parser:{'title':'ragione_sociale'},
-						layer:{	name:'Fattorie didattiche',
-								markerType:'custom',
-								markerImage:'resources/icons/map-icons-collection/hostel_0star.png',
-								smallImage:'resources/icons/default/default-small_green.png',
-								markerImageType:'png',
-								initListState:'expanded',
-								sort:'true'}
-						});" >
-					Fattorie didattiche<span style="font-size:8px;"></span></a><br>
-
-				</li></ul>
-				</div>
-
-				<h3>
-					Open Data - Provincia di Roma
-				</h3> 
-				<span class="description" style="padding-left:1px;">Dataset pubblicati dalla Provincia di Roma con licenza: "Open Knowledge Definition". La pubblicazione è basata sulla piattaforma open-source <img src="./resources/images/ckan.jpg" style="height:18px;"/>CKAN.</span>
-				<div class="varicolumn">
-					<ul><li class="touch" >
-						<a class="touch" href="javascript:maptune.addFeedLayer('http://85.18.173.117/opendata/Agenzieturistiche.xml',{
-							type:'DataRoot',
-							format:'xml',
-							flag:'zoomto',
-							title:'Agenzie turistiche',
-							layer:{	name:'AgenziaTuristica',
-									markerType : 'custom',
-									markerImage : 'resources/icons/travel_agency.png',
-									smallImage : 'resources/icons/default/default-small_turque.png',
-									markerImageType : 'png',
-									initListState : 'expanded',
-									sort:'true'}
-							});" >
-						Agenzie turistiche</a><br>
-						<span class="description"></span>
-						</li><li class="touch" >
-						<a class="touch" href="javascript:maptune.addFeedLayer('http://85.18.173.117/mappe/AccessPoint.xml',{
-							type:'DataRoot',
-							format:'xml',
-							flag:'zoomto',
-							title:'WiFi access points',
-							layer:{ name: 'AccessPoint',
-									markerType : 'custom',
-									markerImage : 'resources/icons/wifi.png',
-									smallImage : 'resources/icons/default/kml/default-small.png',
-									markerImageType : 'png',
-									initListState : 'expanded',
-									sort:'true'}
-							});" >
-						WiFi access points</a><br>
-						<span class="description"></span>
-						</li><li class="touch" >
-						<a class="touch" href="javascript:maptune.addFeedLayer('http://85.18.173.82/cineca/wp5/json/events.geojson',{
-							type:'GeoJson',
-							format:'json',
-							flag:'zoomto',
-							title:'Eventi RomaEPiu',
-							parser:{ title: 'Title' },
-							layer:{	name: 'Eventi RomaEPiu',
-									markerType : 'numeric',
-									markerImageRoot : 'resources/icons/map-icons-collection/numeric/orange',
-									markerImageType : 'png',
-									initListState : 'expanded'}
-							});" >
-						Eventi (geojson)</a><br>
-						<span class="description"></span>
-						</li><li class="touch" >
-						<a class="touch" href="javascript:maptune.addFeedLayer('http://85.18.173.117/opendata/istituto.xml',{
-							type:'DataRoot',
-							format:'xml',
-							flag:'zoomto',
-							title:'Istituti scolastici'
-							});" >
-						Istituti scolastici</a><br>
-						<span class="description"></span>
-					</li></ul>
-				</div>
 
 				<h3>
 					Open Data - Ministero della Salute
@@ -655,83 +446,7 @@
 				</div>
 
 				<h3>
-					Google My Maps - KML
-				</h3> 
-				<span class="description">Importazione di punti georeferenziati creato con Google MyMaps, e usufruibile attraverso il formato export KML attraverso Yahoo Pipes&trade; da 'proxi server'</span>
-				<div class="varicolumn">
-				<ul><li>
-					<a href="javascript:maptune.addFeedLayer('http://maps.google.com/maps/ms?authuser=0&vps=2&hl=it&ie=UTF8&msa=0&output=kml&msid=211764030347800570969.0004ba524e5b9196aac1b',{type:'kml',format:'xml',flag:'zoomto|showinfo'});" >
-					Leggi regionali in materia di Open Data<span style="font-size:8px;"></span></a><br>
-					<span class="description">Info sull'iniziativa: http://blog.ernestobelisario.eu/2012/03/09/mappa-delle-leggi-regionali-in-materia-di-open-data/<br>da Google MyMaps - formato: kml</span>
-					</li><li>
-					<a href="javascript:maptune.addFeedLayer('http://maps.google.it/maps/ms?ie=UTF8&t=h&oe=UTF8&authuser=0&msa=0&output=kml&msid=200071383312425832794.0000011237b231a3d2a72',{type:'kml',format:'xml',flag:'zoomto|gallery'});" >
-					Matera Chiese rupestre<span style="font-size:8px;"></span></a><br>
-					<span class="description">da Google MyMaps -> YQL&trade; -> map layer</span>
-				</li></ul>
-				</div>
-
-				<h3>
-					Proprietary XML Feed
-				</h3> 
-				<span class="description">Diversi test dell'importazione di punti georeferenziati presente in diversi formati da geo feed (proprietary XML, KML, GeoRSS, GeoJSON) possibile con l'uso di Yahoo Pipes&trade; da 'proxi server'</span>
-				<div class="varicolumn">
-				<ul><li>
-					<a href="javascript:maptune.addFeedLayer('http://www.decorourbano.org/ext/georss_dl.php?comune=matera',{type:'DecoroUrbano',format:'xml',flag:'zoomto',proxy:true});" >
-					<img src="http://www.decorourbano.org/resize.php?w=60&h=60&f=/images/avatarGuest.png"/>Decoro urbano - Matera<span style="font-size:8px;"></span></a><br>
-					<span class="description">Decoro Urbano Matera - GeoRSS - proprietario ->  map layer</span>
-				</li></ul>
-				</div>
-
-				<h3>
-					Open Data - publicdata.eu
-					<img src="./resources/images/pdeu_logo.png" style="height:22px;">
-				</h3> 
-				<span class="description">Dataset pubblicati dal Ministero della Salute da 'Open Data on Cloud' con licenza: IODL "Italian Open Data License". La pubblicazione è basata sulla tecnologia <strong>Cloud PaaS Platform as a Service (Microsoft Azure)</strong> e del toolkit, gratuito e Open Source, denominato <strong>OGDI – Open Government Data Initiative</strong></span>
-				<div class="varicolumn">
-				<ul><li>
-					<a href="javascript:maptune.addFeedLayer('http://ogdifrance.cloudapp.net:8080/v1/frOpenData/Arbres/?$filter=&format=kml
-					',{
-						type:'kml',
-						format:'xml',
-						flag:'closed|noinfo|zoomto',
-						title:'Arbre Paris',
-						layer:{	name:'Arbre Paris',
-								markerType:'custom',
-								markerImage : 'resources/icons/parchinat_border.gif',
-								smallImage : 'resources/icons/default/default-small_green.png',
-								markerImageType : 'png'}});" >Arbre Paris</a>
-					<span class="description"></span>
-				</li><li>
-					<a href="javascript:maptune.addFeedLayer('http://ogdifrance.cloudapp.net:8080/v1/frOpenData/BibliothequesFrancophones/?$filter=&format=kml
-					',{
-						type:'kml',
-						format:'xml',
-						flag:'closed|noinfo|zoomto',
-						title:'Bibliotheques Francophones',
-						layer:{	name:'Bibliotheques Francophones',
-								markerType:'custom',
-								markerImage : 'resources/icons/google/red-circle.png',
-								smallImage : 'resources/icons/google/red-circle.png',
-								markerImageType : 'png'}});" >Bibliotheques Francophones</a>
-					<span class="description"></span>
-				</li><li>
-					<a href="javascript:maptune.addFeedLayer('http://ogdifrance.cloudapp.net:8080/v1/frOpenData/BrxBibliothequesNeerlandophones/?$filter=&format=kml
-					',{
-						type:'kml',
-						format:'xml',
-						flag:'closed|noinfo|zoomto',
-						title:'Bibliotheques Neerlandophones',
-						layer:{	name:'Bibliotheques Neerlandophones',
-								markerType:'custom',
-								markerImage : 'resources/icons/google/yel-circle.png',
-								smallImage : 'resources/icons/google/yel-circle.png',
-								markerImageType : 'png'}});" >Bibliotheques Neerlandophones</a>
-					<span class="description"></span>
-				</li></ul>
-				</div>
-
-				<h3>
-					Altri geo feed realizati con Dati Aperti
+					Altri geo feed con Dati Aperti
 				</h3> 
 				<div class="varicolumn">
 				<ul><li>
@@ -758,7 +473,7 @@
 							  description: 'Elenco #MUSEIDIGITALI'
 							},
 
-						flag:'zoomto'});" >Musei Digitali</a>, 
+						flag:'zoomto'});" >Musei Digitali</a> 
 								<span class="description"></span>
 
 
@@ -790,45 +505,6 @@
 						Siti italiani patrimonio UNESCO<span style="font-size:8px;"></span></a>
 					<br><span class="description">formato originale: shapefile --> trasformato: GeoJSON</span>
 				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://api.geonames.org/rssToGeoRSS?geoRSS=w3cGeo&type=rss_2.0&feedUrl=http%3A%2F%2Ffeeds2.feedburner.com/italyQuakes&username=ixmaps',
-						{type:'GeoRSS',
-						 format:'xml',
-						 flag:'zoomto',
-						 layer:{'name': 'Recent Earthquakes in Italy',
-								'markerType' : 'numeric',
-								'markerImageRoot' : 'resources/icons/map-icons-collection/numeric/red',
-								'markerImageType' : 'png',
-								'initListState' : 'noinfo',
-								'markerSizeRule': {	'source': 'name',
-													'regex' : '/Magnitude\\([a-zA-Z]{2}\\) ?(\\b[0-9]+\\.([0-9]+\\b)?|\\.[0-9]+\\b)?/i',
-													'matchIndex' : 1,
-													'normalSizeValue' : 4
-												  }
-								},
-						 proxy:true
-						 });" >
-						ultimi 20 terremoti in Italia<span style="font-size:8px;"</span></a>
-					<br><span class="description">piped: INGV -> feedburner -> RSS -> geonames > GeoRSS</span>
-				</li><li>
-					<a href="javascript:maptune.addFeedLayer('http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml',
-						{type:'GeoRSS',
-						 format:'xml',
-						 flag:'zoomto',
-						 layer:{ name: 'USGS M 5+ Earthquakes',
-								 markerType : 'numeric',
-								 markerImageRoot : 'resources/icons/map-icons-collection/numeric/orange',
-								 markerImageType : 'png',
-								 initListState : 'noinfo',
-								 markerSizeRule: { source: 'name',
-												   regex : '/M ?(\\b[0-9]+\\.([0-9]+\\b)?|\\.[0-9]+\\b)?/i',
-												   matchIndex : 1,
-												   normalSizeValue : 5
-												 }
-								}
-						 });" >
-					Earthquakes worldwide +5<span style="font-size:8px;"></span></a>
-					<br><span class="description">da USGS - formato: GeoRSS</span>
-				</li><li>
 					<a href="javascript:maptune.addFeedLayer('http://earthquake.usgs.gov/earthquakes/feed/v0.1/summary/2.5_week.geojson',
 						{type:'USGSEarthquake',
 						 format:'json',
@@ -848,316 +524,6 @@
 						});" >
 					Earthquakes worldwide - last week<span style="font-size:8px;"></span></a>
 					<br><span class="description">da USGS - formato: GeoJson</span>
-				</li></ul>
-				</div>
-				<h3>
-					Vari altri esempi 
-				</h3> 
-				<span class="description">altri layer realizzati con dati publici</span>
-				<div class="varicolumn">
-				<ul><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://maps.ixmaps.com/assets/maps/layer/jsonp/piemonte_sit.js',
-						{type:'data',
-						 format:'json',
-						 name:'piemonte_sit',
-						 flag:'zoomto'
-						 });" >
-						Siti archeologici e parchi - Regione Piemonte<span style="font-size:8px;"> (45 kb)</span></a>
-					<br><span class="description">formato originale: shapefile --> trasformato: GeoJSON</span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://maps.ixmaps.com/assets/maps/layer/jsonp/settimo_torino_qgs.js',
-						{type:'data',
-						 format:'json',
-						 name:'settimo_torino_qgs',
-						 flag:'zoomto'
-						 });" >
-						Piste ciclabili - Settimo Torinese<span style="font-size:8px;"> (45 kb)</span></a>
-					<br><span class="description">formato originale: shapefile --> trasformato: GeoJSON</span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://maps.ixmaps.com/assets/maps/layer/jsonp/firenze_scavi_archeolocici.js',
-						{type:'data',
-						 format:'json',
-						 name:'firenze_scavi_archeolocici',
-						 flag:'zoomto'
-						 });" >
-						Scavi archeologici - Firenze<span style="font-size:8px;"> (5 Mb kb)</span></a>
-					<br><span class="description">formato originale: shapefile --> trasformato: GeoJSON</span>
-				</li><li>
-					<a href="javascript:maptune.addFeedLayer('http://www.berlin.de/ba-lichtenberg/freizeit/sport/jfe/index.php/index/all.kml?q=',
-						{type:'kml',
-						 format:'xml',
-						 flag:'zoomto'
-						 });" >
-						Freizeit- und Sportstätten Berlin Lichtenberg<span style="font-size:8px;"></span></a>
-					<br><span class="description">da Offene Daten Berlin - formato: KML</span>
-				</li><li>
-					<a href="javascript:maptune.addFeedLayer('http://www.berlin.de/ba-marzahn-hellersdorf/verwaltung/jugend/kita/index.php/index/all.kml?q=',
-						{type:'kml',
-						 format:'xml',
-						 flag:'zoomto'
-						 });" >
-						Kindertagesstätten<span style="font-size:8px;"></span></a>
-					<br><span class="description">da Offene Daten Berlin - formato: KML</span>
-				</li><li>
-					<a href="javascript:maptune.addFeedLayer('http://www.berlin.de/ba-marzahn-hellersdorf/verwaltung/jugend/jugend-termine/index.php/index/all.kml?q=',
-						{type:'kml',
-						 format:'xml',
-						 flag:'zoomto'
-						 });" >
-						Einrichtungen in Marzahn-Hellersdorf für Kinder, Jugendliche und deren Familien<span style="font-size:8px;"></span></a>
-					<br><span class="description">da Offene Daten Berlin - formato: KML</span>
-				</li><li>
-					<a href="javascript:maptune.addFeedLayer('http://www.berlin.de/ba-charlottenburg-wilmersdorf/org/umwelt/umwelt/altglascontainer/index.php/index/all.gjson?q=',
-						{type:'GeoJson',
-						 format:'json',
-						 flag:'zoomto',
-						 title:'Altglascontainer',
-						 parser: {title:'title',lonlat:'true'},
-						 layer: {name:'Altglascontainer',sort:'true'},
-						 });" >
-					Altglascontainer Berlin Charlottenburg-Wilmersdorf<span style="font-size:8px;"></span></a>
-					<br><span class="description">da Offene Daten Berlin - formato: GeoJSON</span>
-				</li><li>
-					<a href="javascript:maptune.addFeedLayer('http://city20.crowdmap.com/feed',
-						{type:'GeoRSS',
-						 format:'xml',
-						 flag:'zoomto'
-						 });" >
-					city20<span style="font-size:8px;"></span></a><br>
-					<span class="description">da crowdmap (USHAHIDI) - formato: GeoRSS</span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://maps.ixmaps.com/assets/maps/layer/jsonp/seismic_hazard.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'seismic_hazard'
-						 });" >
-						Seismic Hazard<span style="font-size:8px;"> (4 Mb)</span></a>
-					<br><span class="description">formato originale: shapefile --> trasformato: GeoJSON</span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://api.geonames.org/rssToGeoRSS?geoRSS=w3cGeo&type=rss_2.0&feedUrl=http%3A%2F%2Ffeeds2.feedburner.com/italyQuakes&username=ixmaps',
-						{type:'GeoRSS',
-						 format:'xml',
-						 flag:'zoomto',
-						 layer:{'name': 'Recent Earthquakes in Italy',
-								'markerType' : 'numeric',
-								'markerImageRoot' : 'resources/icons/map-icons-collection/numeric/red',
-								'markerImageType' : 'png',
-								'initListState' : 'noinfo',
-								'markerSizeRule': {	'source': 'name',
-													'regex' : '/Magnitude\\([a-zA-Z]{2}\\) ?(\\b[0-9]+\\.([0-9]+\\b)?|\\.[0-9]+\\b)?/i',
-													'matchIndex' : 1,
-													'normalSizeValue' : 4
-												  }
-								},
-						 proxy:true
-						 });" >
-						ultimi 20 terremoti in Italia<span style="font-size:8px;"</span></a>
-					<br><span class="description">piped: INGV -> feedburner -> RSS -> geonames > GeoRSS</span>
-				</li><li>
-					<a href="javascript:maptune.addFeedLayer('http://earthquake.usgs.gov/earthquakes/catalogs/eqs7day-M5.xml',
-						{type:'GeoRSS',
-						 format:'xml',
-						 flag:'zoomto'
-						 });" >
-					Earthquakes worldwide +5<span style="font-size:8px;"></span></a>
-					<br><span class="description">da USGS - formato: GeoRSS</span>
-				</li><li>
-					<a href="javascript:maptune.addFeedLayer('http://earthquake.usgs.gov/earthquakes/feed/v0.1/summary/2.5_week.geojson',
-						{type:'USGSEarthquake',
-						 format:'json',
-						 flag:'zoomto',
-						 layer:{name:'USGS Magnitude 2.5+ Earthquakes, Past Week',
-								markerType : 'symbol',
-								markerImage : 'resources/icons/default/symbols/red_circle.png',
-								smallImage : 'resources/icons/default/symbols/red_circle.png',
-								markerImageType : 'png',
-								markerSizeRule : { source: 'mag',
-												   regex:  '/[-+]?[0-9]*\.?[0-9]+/',
-												   matchIndex:  0,
-												   normalSizeValue: 3,
-												   pow: 2
-												 }
-								}
-						});" >
-					Earthquakes worldwide - last week<span style="font-size:8px;"></span></a>
-					<br><span class="description">da USGS - formato: GeoJson</span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://maps.ixmaps.com/assets/maps/layer/jsonp/siti_italiani_unesco.js',
-						{type:'data',
-						 format:'json',
-						 name:'Siti Italiani nel Patrimonio Mondiale del UNESCO',
-						 flag:'zoomto',
-						 layer:{	
-							name:'Siti Italiani nel Patrimonio Mondiale del UNESCO',
-							markerType:'custom',
-							markerImage : 'resources/icons/map-icons-collection/lodging_0star.png',
-							smallImage : 'resources/icons/default/default-small_blue.png',
-							markerImageType : 'png'
-							}
-						 });" >
-						siti_italiani_unesco<span style="font-size:8px;"> (5 Mb kb)</span></a>
-					<br><span class="description">formato originale: shapefile --> trasformato: GeoJSON</span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://www.stadt-koeln.de/externe-dienste/open-data/events-od.php',
-						{type:'Koeln_Events',
-						 format:'json',
-						 name:'Koeln Events',
-						 flag:'zoomto'
-						 });" >
-						Koeln events<span style="font-size:8px;"></span></a>
-					<br><span class="description"></span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://www.stadt-koeln.de/externe-dienste/open-data/parking.php',
-						{type:'Koeln_Parken',
-						 format:'json',
-						 name:'Koeln Parken',
-						 flag:'zoomto'
-						 });" >
-						Koeln Parken<span style="font-size:8px;"></span></a>
-					<br><span class="description" style="color:#00dd00;">Live!</span>
-				</li></ul>
-				</div>
-
-				<h3>
-					Esempi itinerari e cartografia
-				</h3> 
-				<span class="description">Questi esempi sono progetti QGIS (shapefiles + styling) trasformato in GeoJSON dialetto (GeoJSON + layer and sublayer definitions)</span>
-				<div class="varicolumn">
-				<h5>San Benedetto del Tronto</h5>
-				<ul><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://maps.ixmaps.com/assets/maps/layer/jsonp/ItinerarioArteStoria.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'ItinerarioArteStoria',
-						 flag:'zoomto'
-						});" >
-					<img src="./resources/images/route.png" style="height:22px;padding-right:5px;" />Itinerario Arte Storia<span style="font-size:8px;"></span></a>
-					<span class="description"></span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://maps.ixmaps.com/assets/maps/layer/jsonp/ItinerarioGiardini.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'ItinerarioGiardini',
-						 flag:'zoomto|showinfo'
-						});" >
-					<img src="./resources/images/route.png" style="height:22px;padding-right:5px;" />Itinerario Giardini<span style="font-size:8px;"></span></a>
-					<span class="description"></span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://maps.ixmaps.com/assets/maps/layer/jsonp/ItinerarioPorto.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'ItinerarioPorto',
-						 flag:'zoomto'
-						});" >
-					<img src="./resources/images/route.png" style="height:22px;padding-right:5px;" />Itinerario Porto<span style="font-size:8px;"></span></a>
-					<span class="description"></span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://public.ixmaps.com/assets/maps/layer/jsonp/franeesondazioni.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'franeesondazioni',
-						 flag:'zoomto'
-						});" >
-					<img src="./resources/images/cartografia.png" style="height:22px;padding-right:5px;" />Frane &amp; Esondazioni (PAI)<span style="font-size:8px;"></span></a>
-					<span class="description"></span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://public.ixmaps.com/assets/maps/layer/jsonp/Scuole.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'Scuole SBT',
-						 flag:'zoomto'
-						});" >
-					<img src="./resources/images/cartografia.png" style="height:22px;padding-right:5px;" />Scuole SBT <span style="font-size:8px;"></span></a>
-					<span class="description"></span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://public.ixmaps.com/assets/maps/layer/jsonp/CTR_tutto.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'CTR tutto',
-						 flag:'zoomto'
-						});" >
-					<img src="./resources/images/cartografia.png" style="height:22px;padding-right:5px;" />CTR Marche <span style="font-size:8px;"></span></a>
-					<span class="description"></span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://public.ixmaps.com/assets/maps/layer/jsonp/CTR_infrastruttura.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'CTR infrastruttura',
-						 flag:'zoomto'
-						});" >
-					<img src="./resources/images/cartografia.png" style="height:22px;padding-right:5px;" />CTR Marche - solo infrastrutture<span style="font-size:8px;"></span></a>
-					<span class="description"></span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://public.ixmaps.com/assets/maps/layer/jsonp/edificidepoca.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'Edifici ed epoca',
-						 flag:'zoomto'
-						});" >
-					<img src="./resources/images/cartografia.png" style="height:22px;padding-right:5px;" />Edifici d'epoca <span style="font-size:8px;"></span></a>
-					<span class="description"></span>
-				</li>
-				<h5>Firenze</h5>
-				<li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://public.ixmaps.com/assets/maps/layer/jsonp/firenze_alberi.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'Firenze alberi',
-						 flag:'zoomto'
-						});" >
-					<img src="./resources/images/cartografia.png" style="height:22px;padding-right:5px;" />Firenze - Alberi <span style="font-size:8px;"></span></a>
-					<span class="description">Elementi puntuali che individuano sul territorio gli alberi pubblici gestiti dall'Amministrazione Comunale Fiorentina. Dataset scaricato in formato shapefile pubblicato da OpenData Firenze, licenza: CC BY 3.0 IT <a href="http://opendata.comune.fi.it/ambiente/dataset_0037.html">(link al dataset)</a></span><span> !! Dataset grande !!</span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://public.ixmaps.com/assets/maps/layer/jsonp/firenze_autoritabacino.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'Firenze Autorita Bacino',
-						 flag:'zoomto'
-						});" >
-					<img src="./resources/images/cartografia.png" style="height:22px;padding-right:5px;" />Firenze - Autorità di Bacino <span style="font-size:8px;"></span></a>
-					<span class="description">Due dataset della Autorità di bacino, pubblicato da OpenData Firenze, licenza: IODL <a href="http://opendata.comune.fi.it/autorita_bacino/dataset_0286.html">(link al dataset)</a></span>
-				</li><li>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://public.ixmaps.com/assets/maps/layer/jsonp/firenze_mobilita.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'Firenze Mobilita',
-						 flag:'zoomto',
-						 layer:{	
-							name:'Rastrelliere',
-							markerType:'custom',
-							markerImage : 'resources/icons/map-icons-collection/lodging_0star.png',
-							smallImage : 'resources/icons/default/default-small_green.png',
-							markerImageType : 'png'
-							}
-						});" >
-					<img src="./resources/images/cartografia.png" style="height:22px;padding-right:5px;" />Firenze - Mobilità<span style="font-size:8px;"></span></a>
-					<span class="description">Dataset pubblicato da OpenData Firenze, licenza: IODL <a href="http://opendata.comune.fi.it">(link al dataset)</a></span>
-				</li>
-				<h5>Cupra Martittima</h5>
-				<li>
-
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://maps.ixmaps.com/assets/maps/layer/jsonp/Cupra_PRG.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'PRG Cupra',
-						 flag:'zoomto'
-						});" >
-					<img src="./resources/images/cartografia.png" style="height:22px;padding-right:5px;" />Esempio PRG <span style="font-size:8px;"></span></a>
-					<span class="description"></span>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://maps.ixmaps.com/assets/maps/layer/jsonp/Cupra_Edifici.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'PRG Cupra Edifici'
-						});" >
-					<img src="./resources/images/cartografia.png" style="height:22px;padding-right:5px;" />- aggiunto Edifici<span style="font-size:8px;"></span></a>
-					<span class="description"></span>
-					<a class="touch" href="javascript:maptune.addFeedLayer('http://maps.ixmaps.com/assets/maps/layer/jsonp/Cupra_Vegetazione.js.gz',
-						{type:'data',
-						 format:'json',
-						 name:'PRG Cupra Vegetazione'
-						});" >
-					<img src="./resources/images/cartografia.png" style="height:22px;padding-right:5px;" />- aggiunto Vegetazione<span style="font-size:8px;"></span></a>
-					<span class="description"></span>
 				</li></ul>
 				</div>
 
@@ -1211,6 +577,7 @@
 			<br>
 			<br>
 			- end -
+			</div>
 		</div>
 	</div>
 

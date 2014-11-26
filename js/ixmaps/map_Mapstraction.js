@@ -86,8 +86,7 @@ function _map_loadMap(target,szMapService) {
 			  mapstraction.addTileLayer("http://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 				 name: "OpenStreetMap",
 				 myname: "OpenStreetMap",
-				 attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>.'+
-							  ' &hearts; <a href="http://donate.openstreetmap.org" target="_blank">Fai una donazione</a>',
+				 attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>.',
 				 subdomains: ['otile1','otile2','otile3','otile4'],
 				 maxZoom: 19
 			  });
@@ -277,7 +276,7 @@ function _map_loadMap(target,szMapService) {
 			  });
 				mapstraction.addControls({
 					pan: false, 
-					zoom: {position:'topleft'},
+					zoom: {position:'bottomleft'},
 					map_type: true
 					});
 

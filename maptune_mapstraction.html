@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="css/mobilemap.css" />
 	<link rel="stylesheet" href="css/tooltip.css" />
 	<link rel="stylesheet" href="css/messagebox.css" />
+	<link rel="stylesheet" href="css/feedlist.css" />
 
 	<style type="text/css">
 		#hdr{
@@ -135,10 +136,10 @@
 				<a href="javascript:ixmaps.jsapi.setMapType('road');ixmaps.jsapi.setView('map');ixmaps.jsapi.reset();" class="ui-btn ui-btn-up-c" style="float:left;">
 					<img style="align:center;" src="resources/ui/reset_blu.png" height="34px;">
 				</a>
-				<a href="javascript:maptune.selectFeedDialog('show');" class="ui-btn ui-btn-up-f" style="float:left;margin-left:10px;margin-top:4px;margin-right:10px;padding-right:10px;border-right:#aaa solid 1px;">
+				-->
+				<a href="javascript:maptune.selectFeedDialog('show');" style="float:left;margin-left:10px;margin-top:4px;margin-right:10px;padding-right:10px;border-right:#aaa solid 1px;">
 					<img style="align:center;" src="resources/ui/plus.png" height="30px;">
 				</a>
-				-->
 				<a href="javascript:maptune.selectLayerDialog();" style="float:left;margin-top:4px;margin-right:3px;">
 					<img style="align:center;" src="resources/ui/menu.png" height="30px;" >
 				</a>
@@ -183,7 +184,7 @@
 			</div>
 
 			<div id="feed-dialog" style="position:absolute;right:0px;top:0px;width:100%;height:100%;display:none;">
-				<div id="feed-dialog-div" class="dialog" style="max-width:580px;padding:0px 20px 1em 1em;background:#f8f8f8;height:inherit;">
+				<div id="feed-dialog-div" class="dialog" style="max-width:580px;padding:0px 20px 1em 1em;background:#f8f8f8;height:inherit;float:right">
 					<div id="feed-list" style="height:100%;overflow:auto;" >
 					</div>
 				</div>
@@ -208,6 +209,13 @@
 				<span id="statusline" style="font-weight:normal;font-size:0.6em;opacity:0.5;"></span>
 			</div>
 
+			<div id="collectionbutton" style="float:left;margin-left:6px;margin-top:-2px;" >		
+
+				<fieldset data-role="controlgroup" data-type="horizontal" data-theme="f" data-mini="1" style="opacity:0.3">
+					<input type="button" data-theme="b" id="collection" name="collection" onclick="javascript:ixmaps.jsapi.toggleLayerType('Collection')" value="&star;"/>
+				</fieldset>
+
+			</div>
 			<div id="timelapbuttons" style="position:absolute;right:6px;bottom:-2px;visibility:hidden;" >		
 			
 				<div style="float:left;" >
