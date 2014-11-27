@@ -200,6 +200,7 @@ div.listitem-right {
 	margin-left:30px;
 	margin-top:5px;
 	margin-bottom:10px;
+	color:#666;
 	}
 div.listitemcontrolgroup {
 	margin-top:5px;
@@ -279,8 +280,10 @@ a.listitemcontrol:hover{
 	text-decoration: underline;
 }
 .item{
-	margin-top: 5px;
-	margin-bottom: 3px;
+	font-size: 1.2em;
+	line-height: 1em;
+	margin-top: 0.2em;
+	margin-bottom: 0.5em;
 }
 .listheader {
 	color: #000;
@@ -293,6 +296,17 @@ a.listitemcontrol:hover{
 	xbackground-color: #e9eBf1;
 	text-indent: 5px;
 	white-space: nowrap;
+}
+.itemlist-datum-header {
+	font-family:arial;
+	font-size:0.8em;
+	color: #fff;
+	background: #3498db;
+	margin-left:5px;
+	margin-top:5px;
+	margin-bottom:2px;
+	border-bottom:solid 1px #ddd;
+	padding-left:0.5em;
 }
 
 #footer {
@@ -366,10 +380,6 @@ div.cloud{
 	border-bottom: #ddd solid 1px;
 	margin-right: 2px;
 }
-.item{
-	margin-top: 5px;
-	margin-bottom: 3px;
-}
 #itemlist #sidebar-list li a.title {
 	xborder-style: solid;
 	xborder-color: #dddddd;
@@ -416,7 +426,7 @@ div.listitem {
 }
 div.listitemselected {
 	background: #f0f0f0;
-	background-image:linear-gradient(#f8f8f8,#f0f0f0);
+	xxbackground-image:linear-gradient(#f8f8f8,#e8e8e8);
 
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.075);
      -moz-box-shadow: 0 1px 2px rgba(0,0,0,.075);
@@ -511,6 +521,7 @@ div.InfoWindowHeader {
 	color: #115599;
 	font-family: arial, 'ms sans serif', sans-serif;
 	font-size: 1.2em;
+	line-height: 1em;
 	font-weight: bold;
 	padding: 0px;
 	margin: 0;

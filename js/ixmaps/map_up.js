@@ -1238,13 +1238,19 @@ MapUp.prototype.synchronize = function() {
 
 	this.redrawLayer();
 
+
 	if ( this.fClipSidebarToMapExtent && !ixmaps.jsapi.fSidebarClick ){
+
 		this.clearSidebar();
 		this.drawSidebar();
 		this.highlightSidebarItem(this.map,actualInfoMarker);
 	}else{
 		this.highlightSidebarItem(this.map,actualInfoMarker);
-		ixmaps.jsapi.fSidebarClick = false;
+		if ( ixmaps.jsapi.fSidebarClickZoom ){
+			ixmaps.jsapi.fSidebarClickZoom = false;
+		}else{
+			ixmaps.jsapi.fSidebarClick = false;
+		}
 	}
 
 	if ( fShowTooltips && (this.actualMapZoom >= 15) ){
@@ -1727,7 +1733,7 @@ MapUp.prototype.makeItemListItems = function(layerObj,defaultIcon,markers) {
 
 			nItems++;
 
-			// if only 'one line' item info
+			// if item with complete info 
 			// ----------------------------
 			if ( layer.fShowInfoInList && markers[i].properties.utime){
 
@@ -1738,12 +1744,12 @@ MapUp.prototype.makeItemListItems = function(layerObj,defaultIcon,markers) {
 				var szDateEnd = "";
 				if ( markers[i].properties.utimeEnd ){
 					d = new Date(Number(markers[i].properties.utimeEnd));
-					szDateEnd = " - "+szDayA[(d.getDay())] + " " + d.getDate()+" " +szMonthA[(d.getMonth())]+ " " +d.getFullYear();
+					szDateEnd = szDayA[(d.getDay())] + " " + d.getDate()+" " +szMonthA[(d.getMonth())]+ " " +d.getFullYear();
 				}
 
 				if ( this.timeline && layer.duration && (szDate != szLastDate) ){
 					var dateItem = document.createElement("p");
-					dateItem.setAttribute("style","font-family:arial;font-size:0.8em;color:#53637D;margin-left:5px;margin-top:5px;margin-bottom:2px;border-bottom:solid 1px #ddd");
+					dateItem.setAttribute("class","itemlist-datum-header");
 
                     var szPiu = "";
 					/**
@@ -1753,7 +1759,7 @@ MapUp.prototype.makeItemListItems = function(layerObj,defaultIcon,markers) {
 						szPiu = " <a href=\"javascript:_mapup_open_sidebar_datesection('"+szDate+"')\" style=\"font-size:0.8em;\">";
 					}
 					**/
-					dateItem.innerHTML = szPiu + szDate + szDateEnd; // + "</a>";
+					dateItem.innerHTML = szPiu + szDate + ((szDateEnd != szDate)?(" - "+szDateEnd):""); 
 					listTable.appendChild(dateItem);
 					szLastDate = szDate;
 				}
@@ -1808,7 +1814,7 @@ MapUp.prototype.makeItemListItems = function(layerObj,defaultIcon,markers) {
 				var szDateEnd = "";
 				if ( markers[i].properties.utimeEnd ){
 					d = new Date(Number(markers[i].properties.utimeEnd));
-					szDateEnd = " - "+ d.getDate()+" " +szMonthA[(d.getMonth())]+ " " +d.getFullYear();
+					szDateEnd = d.getDate()+" " +szMonthA[(d.getMonth())]+ " " +d.getFullYear();
 				}
 
 				var dateItem = document.createElement("p");
@@ -1835,7 +1841,7 @@ MapUp.prototype.makeItemListItems = function(layerObj,defaultIcon,markers) {
 				**/
 				szRowContent += "<p style='font-family:arial;font-size:0.8em;font-weight:normal;color:#53637D;padding-left:30px;margin-top:5px;margin-bottom:-10px;'>";
 				//szRowContent += szPiu + szDate + szDateEnd + "</a>" + szQualify;
-				szRowContent += szDate + szDateEnd + szQualify;
+				szRowContent += szDate + ((szDateEnd!=szDate)?(" - "+szDateEnd):"") + szQualify;
 				szRowContent += "</p>";
 				//dateItem.innerHTML = szPiu + szDate + szDateEnd + "</a>" + szQualify;
 				//listTable.appendChild(dateItem);
@@ -3117,6 +3123,7 @@ function _mapup_createMarkerClickHandler(map, marker, layer, info, szMode, i) {
 
 		if ( actualInfoMarker == marker ){
 			console.log("actualInfoMarker");
+			ixmaps.jsapi.fSidebarClickZoom = true;
 			_map_setZoom(map,_map_getZoom(map)+1);
 			return false;
 		}

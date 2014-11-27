@@ -90,4 +90,74 @@
 
 	setTimeout("__init()",1000);
 
+
+	/*
+	 * overwrite standard info layout
+	 * ------------------------------
+	 * ixmaps.jsapi.onOpenInfoWindow is called everytime a info bubble is to be opened,
+	 * or the info is diplayed in the sidebar
+	 *
+	 * @param szInfo the actual info content, must be returned if not return of new content
+	 * @param info the info structiìure of the item
+	 * @param szContext "map" or "sidebar", identifies the context of the 'onOpenInfoWindow' request
+	 */
+	ixmaps.jsapi.onOpenInfoWindow = function(szInfo,info,szContext) {
+
+		if ( info.parent.source == "Eventi Condivisi" ){
+			szInfo = "";
+			szInfo += "<div class='InfoWindowBody' style='overflow:hidden'><table><tr><td>";
+			if ( info.properties['Data inizio'] && info.properties['Data inizio'].length ){
+				szInfo += "<div style='font-weight:bold'>" + info.properties['Data inizio'] + "</div>";
+			}
+			if ( info.properties['Luogo'] && info.properties['Luogo'].length ){
+				szInfo += "<div style='margin-top:0.2em;font-weight:bold'>" + info.properties['Luogo'] + "</div>";
+			}
+			szInfo += "<div style='float:left,margin-right:0.5em;'>";
+				if ( info.properties.Link_immagine && info.properties.Link_immagine.length ){
+					szInfo += "<img src='"+info.properties.Link_immagine+"' height='200px'>";
+				}
+			szInfo += "</div>";
+
+			szInfo += "<div style='float:left;'>";
+			if ( info.properties.Organizzatore && info.properties.Organizzatore.length ){
+				szInfo += "<div style='margin-top:0.5em;'>organizzato da: <br><span style='font-weight:normal'>" + info.properties.Organizzatore + "</span></div>";
+			}
+			if ( info.properties['Link'] && info.properties['Link'].length ){
+				var szLink = info.properties['Link'];
+				szLink = (szLink.length <= 30)?szLink:(szLink.substr(0,29) + " ...");
+				szInfo += "<a href='"+ info.properties['Link'] +"' target='_blank'>" + szLink + "</a><br>";
+			}
+			szInfo += "</div>";
+
+			szInfo += "<div style='clear:both'></div>";
+
+			if ( info.properties['Note'] && info.properties['Note'].length ){
+				szInfo += "<div style='margin-top:1em;font-weight:normal'>" + info.properties['Note'] + "</div>";
+			}
+
+			if ( info.properties['Pagamento'] && info.properties['Pagamento'].length ){
+				szInfo += "<div style='margin-top:0.5em;font-weight:normal'>a pagamento: " + info.properties['Pagamento'] + "</div>";
+			}
+
+			szInfo += "</div>";
+
+			szInfo += "</td></tr></table></div>";
+
+			}
+
+		/* default onOpenInfoWindow */
+		if ( 1 ){
+			var szZoomTo  = "<div style='float:right;margin-left:5px;margin-top:-5px;margin-right:-5px'>";
+				szZoomTo += ixmaps.jsapi.getZoomLink(info.geometry.coordinates[1]+","+info.geometry.coordinates[0]);
+				szZoomTo += "</div>";
+			szInfo += szZoomTo;
+
+		}	
+		return szInfo;
+	};
+
+	// --------------------------------------
+	// EOF
+	// --------------------------------------
+
 	_TRACE("BasilicataEventi.js ----- EOF");
