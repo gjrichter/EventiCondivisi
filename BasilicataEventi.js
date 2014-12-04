@@ -1,6 +1,11 @@
 	_TRACE("BasilicataEventi.js ------->");
 	// define default marker style for layers
 	var MapParam = {
+		"all" :
+			{ 
+			"smallInfoClipDescription" : "100",
+			"smallInfoKeepImage" : "true"
+			},
 		"default":
 			{
 			"thumbnailRoot" : "resources/images/tn/",
@@ -103,6 +108,16 @@
 	 */
 	ixmaps.jsapi.onOpenInfoWindow = function(szInfo,info,szContext) {
 
+		if ( szContext == "map" ){
+			if ( 1 ){
+				var szZoomTo  = "<span class='InfoWindowFooter' style='float:right;vertical-align:middle;margin-right:-1em'>";
+					szZoomTo += ixmaps.jsapi.getZoomLink(info.geometry.coordinates[1]+","+info.geometry.coordinates[0]);
+					szZoomTo += "</span>";
+				szInfo += szZoomTo;
+			}	
+			return szInfo;
+		}
+
 		if ( info.parent.source == "Eventi Condivisi" ){
 			szInfo = "";
 			szInfo += "<div class='InfoWindowBody' style='overflow:hidden'><table><tr><td>";
@@ -110,7 +125,7 @@
 				szInfo += "<div style='font-weight:bold'>" + info.properties['Data inizio'] + "</div>";
 			}
 			if ( info.properties['Luogo'] && info.properties['Luogo'].length ){
-				szInfo += "<div style='margin-top:0.2em;font-weight:bold'>" + info.properties['Luogo'] + "</div>";
+				szInfo += "<div style='margin-top:0.2em;font-weight:normal'>" + info.properties['Luogo'] + "</div>";
 			}
 			szInfo += "<div style='float:left,margin-right:0.5em;'>";
 				if ( info.properties.Link_immagine && info.properties.Link_immagine.length ){
@@ -143,16 +158,16 @@
 
 			szInfo += "</td></tr></table></div>";
 
-			}
+		}
 
 		/* default onOpenInfoWindow */
 		if ( 1 ){
-			var szZoomTo  = "<div style='float:right;margin-left:5px;margin-top:-5px;margin-right:-5px'>";
+			var szZoomTo  = "<div class='InfoWindowFooter' style='position:absolute;bottom:5px;right:5px'>";
 				szZoomTo += ixmaps.jsapi.getZoomLink(info.geometry.coordinates[1]+","+info.geometry.coordinates[0]);
 				szZoomTo += "</div>";
 			szInfo += szZoomTo;
-
 		}	
+
 		return szInfo;
 	};
 
