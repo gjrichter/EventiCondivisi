@@ -401,6 +401,15 @@ div.cloud{
 #itemlist a.expanded{
 	background: url(../resources/ui/expanded.png) 97% 50% no-repeat; background-size: 22px 22px;
 }
+.listitem div.description, .listitem div.description p{
+	color: #000000;
+	font-family: arial, 'ms sans serif', sans-serif;
+	font-size: 12px;
+	line-height: 1.1em;
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
 .itemlist-filterform{
 	display:inline-block;
 	position:relative;
@@ -488,7 +497,7 @@ a.listitemcontrol:hover{
 .listitemcontrolgroup {
 	color: #000;
 	font-family: arial, 'ms sans serif', sans-serif;
-	font-size: 0.0em;
+	font-size: 1em;
 	font-weight: bold;
 	padding: 0px;
 	margin: 0px;
@@ -513,6 +522,7 @@ div.touchactive {
 li.touchactive {
     background: #ddd;
 }
+
 /**
  *	map info window styling
  */
@@ -553,12 +563,6 @@ div.InfoWindowBody table tbody tr td{
 div.InfoWindowBody table img{
 	margin-top: 8px;
 	margin-bottom: 10px;
-}
-div.InfoWindowBody a:link, div.InfoWindowBody a:visited{
-	text-decoration: underline;
-}
-div.framed a:link, div.InfoWindowBody a:visited{
-	text-decoration: underline;
 }
 .dt_label{
 	color: #99aabb;

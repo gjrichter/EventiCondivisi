@@ -1716,7 +1716,22 @@ mxn.addProxyMethods(Polyline, [
 	 * @name mxn.Polyline#update
 	 * @function
 	 */
-	'update'
+	'update',
+
+		/**
+	 * Open the marker's info bubble.
+	 * @name mxn.Marker#openBubble
+	 * @function
+	 */
+	'openBubble',
+	
+	/**
+	 * Closes the marker's info bubble.
+	 * @name mxn.Marker#closeBubble
+	 * @function
+	 */
+	'closeBubble'
+
 ]);
 
 /**
@@ -1812,6 +1827,14 @@ Polyline.prototype.setAttribute = function(key,value) {
  */
 Polyline.prototype.getAttribute = function(key) {
 	return this.attributes[key];
+};
+
+/**
+ * Sets the html/text content for a bubble popup for a marker
+ * @param {String} infoBubble the html/text you want displayed
+ */
+Polyline.prototype.setInfoBubble = function(infoBubble) {
+	this.infoBubble = infoBubble;
 };
 
 /**

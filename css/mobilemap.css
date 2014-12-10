@@ -243,6 +243,12 @@ li.touchactive {
  *	map info window styling
  */
 
+div.InfoWindow img {
+	vertical-align: middle;
+}
+div.InfoWindow a {
+	text-decoration: none;
+}
 div.InfoWindowHeader {
 	color: #115599;
 	xxfont-family: arial, 'ms sans serif', sans-serif;
@@ -255,6 +261,7 @@ div.InfoWindowHeader {
 	margin-right: 25px;
 	margin-left: 0px;
 	max-width:300px;
+	min-width: 150px;
 }
 div.InfoWindowBody {
 	margin-top: 2px;
@@ -280,6 +287,35 @@ div.InfoWindowBody table img{
 }
 .dt_label{
 	color: #99aabb;
+}
+div.InfoWindowFooter {
+	vertical-align: middle;
+	position:relative;
+	bottom:1em;
+	margin-top: 2em;
+}
+.InfoWindowFooter a {
+	text-decoration: none;
+}
+#myPopup {
+	border-radius:0.4em;
+	background:#fff;
+	margin:0.5em 1em 0.5em 0.5em;
+	padding:0.5em;
+}
+#myPopupDiv-content {
+	margin-top:30px;
+	height:92%;
+	max-width:100%;
+	overflow:auto;
+}
+#myPopupDiv-delete-button {
+	position:absolute;
+	top:1em;
+	right:1.5em;
+}
+#myPopupDiv-delete-button img{
+	height:1.5em;
 }
 /**
   * transform links into buttons 

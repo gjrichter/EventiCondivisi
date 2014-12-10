@@ -3,7 +3,7 @@
 	var MapParam = {
 		"all" :
 			{ 
-			"smallInfoClipDescription" : "100",
+			"smallInfoClipDescription" : "500",
 			"smallInfoKeepImage" : "true"
 			},
 		"default":
@@ -121,9 +121,34 @@
 		if ( info.parent.source == "Eventi Condivisi" ){
 			szInfo = "";
 			szInfo += "<div class='InfoWindowBody' style='overflow:hidden'><table><tr><td>";
+
+			// make nice date and time 
+			// -----------------------
+			var initDate = "";
+			var initTime = "";
+			var endDate = "";
+			var endTime = "";
 			if ( info.properties['Data inizio'] && info.properties['Data inizio'].length ){
-				szInfo += "<div style='font-weight:bold'>" + info.properties['Data inizio'] + "</div>";
+				var dateA = info.properties['Data inizio'].split(' ')[0].split('\/');
+				var timeA = info.properties['Data inizio'].split(' ')[1].split('\.');
+				var d = new Date(dateA[2],dateA[1]-1,dateA[0],timeA[0],timeA[1]);
+				var initDate = dateA[0]+'/'+dateA[1]+'/'+dateA[2];
+				var initTime = d.toLocaleTimeString().substr(0,5);
 			}
+			if ( info.properties['Data fine'] && info.properties['Data fine'].length ){
+				var dateA = info.properties['Data fine'].split(' ')[0].split('\/');
+				var timeA = info.properties['Data fine'].split(' ')[1].split('\.');
+				var d = new Date(dateA[2],dateA[1]-1,dateA[0],timeA[0],timeA[1]);
+				var endDate = dateA[0]+'/'+dateA[1]+'/'+dateA[2];
+				var endTime = d.toLocaleTimeString().substr(0,5);
+			}
+			if ( initDate == endDate){
+				szInfo += "<div><span style='font-weight:bold'>" + initDate + "</span> " + initTime + " - " + endTime + "</div>";
+			}else{
+				szInfo += "<div><span style='font-weight:bold'>" + initDate + " - " + endDate + "</span>&nbsp; " + initTime + " - " + endTime + "</div>";
+			}
+			// -----------------------
+
 			if ( info.properties['Luogo'] && info.properties['Luogo'].length ){
 				szInfo += "<div style='margin-top:0.2em;font-weight:normal'>" + info.properties['Luogo'] + "</div>";
 			}
@@ -162,7 +187,7 @@
 
 		/* default onOpenInfoWindow */
 		if ( 1 ){
-			var szZoomTo  = "<div class='InfoWindowFooter' style='position:absolute;bottom:5px;right:5px'>";
+			var szZoomTo  = "<div style='float:right;margin-top:-0.3em;'>";
 				szZoomTo += ixmaps.jsapi.getZoomLink(info.geometry.coordinates[1]+","+info.geometry.coordinates[0]);
 				szZoomTo += "</div>";
 			szInfo += szZoomTo;

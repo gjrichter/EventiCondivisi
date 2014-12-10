@@ -383,7 +383,22 @@ Polyline: {
         } else {
             return true;
         }
+    },
+
+	openBubble: function() {
+        var pin = this.proprietary_polyline;
+        if (this.infoBubble) {
+			pin.mxnMarker = this;
+            pin.bindPopup(this.infoBubble);
+            pin.openPopup();
+        }
+    },
+    
+    closeBubble: function() {
+        var pin = this.proprietary_polyline;
+		pin.closePopup();
     }
+
 }
 
 });

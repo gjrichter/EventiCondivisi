@@ -40,6 +40,21 @@
 		.leaflet-container {
 			font: 14px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
 		}
+		.leaflet-container a.leaflet-popup-close-button {
+			position: absolute;
+			top: 0;
+			right: 0;
+			margin-top: 8px;
+			margin-right: 5px;
+			text-align: center;
+			width: 20px;
+			height: 23px;
+			font: 24px/14px Tahoma, Verdana, sans-serif;
+			color: #c3c3c3;
+			text-decoration: none;
+			font-weight: bold;
+			background: transparent;
+		}
 	</style>
 	<!--[if lte IE 8]>
 		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
@@ -108,6 +123,12 @@
 
 		});
 
+		__switchCollection = function(element){
+			var success = ixmaps.jsapi.toggleLayerType('Collection');
+			$("#switch-collection").css("opacity",success?"0.8":"0.3");
+			$("#collectionbutton").css("opacity",success?"0.9":"0.5");
+		};
+
 	</script>
 
 </head> 
@@ -171,19 +192,21 @@
 			<div id="map" style="padding:0;margin:0;">
 			</div>
 
-			<div id="myPopupDivBG" style="width:100%;height=100%;background:#444;opacity:0.5;">
+			<div id="myPopupDivBG" style="width:100%;height=100%;background:#444;opacity:0.5;z-index:10000">
 			</div>
-			<div id="myPopupDiv" >
+			<div id="myPopupDiv" style="z-index:10000">
+				<div id="myPopup" style="z-index:10000">
+				</div>
 			</div>
 
 			<!--========================================================================= 
 				dialog overlays
 			<!--========================================================================= -->
 
-			<div id="layer-dialog" style="position:absolute;right:0px;top:0px;display:none;background:#f8f8f8;overflow:auto;">
+			<div id="layer-dialog" style="position:absolute;right:0px;top:0px;display:none;background:#f8f8f8;overflow:auto;z-index:10000;">
 			</div>
 
-			<div id="feed-dialog" style="position:absolute;right:0px;top:0px;width:100%;height:100%;display:none;">
+			<div id="feed-dialog" style="position:absolute;right:0px;top:0px;width:100%;height:100%;display:none;z-index:10000;">
 				<div id="feed-dialog-div" class="dialog" style="max-width:580px;padding:0px 20px 1em 1em;background:#f8f8f8;height:inherit;float:right">
 					<div id="feed-list" style="height:100%;overflow:auto;" >
 					</div>
@@ -209,10 +232,12 @@
 				<span id="statusline" style="font-weight:normal;font-size:0.6em;opacity:0.5;"></span>
 			</div>
 
-			<div id="collectionbutton" style="float:left;margin-left:6px;margin-top:-2px;" >		
+			<div id="collectionbutton" style="float:left;margin-left:6px;margin-top:-2px;opacity:0.5;" >		
 
-				<fieldset data-role="controlgroup" data-type="horizontal" data-theme="f" data-mini="1" style="opacity:0.3">
-					<input type="button" data-theme="b" id="collection" name="collection" onclick="javascript:ixmaps.jsapi.toggleLayerType('Collection')" value="&star;"/>
+				<fieldset data-role="controlgroup" data-type="horizontal" data-theme="f" data-mini="1" style="background:#fff;padding:5px 3px 2px 3px;border #ddd solid 1px;">
+					<a type="button" id="switch-collection" data-theme="b" id="collection" name="collection" onclick="javascript:__switchCollection()" style="opacity:0.3" >
+						<img src="resources/ui/black_star_u2605_icon_64x64.png" height="24" >
+					</a>
 				</fieldset>
 
 			</div>
