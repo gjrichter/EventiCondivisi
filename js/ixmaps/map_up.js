@@ -3596,7 +3596,7 @@ Timeline.prototype.setTimeWindow = function(szFlag,nDays,startTime){
 				d = new Date(d.getFullYear(),d.getMonth()-1,1);
 				this.low = d.getTime();
 				var nDaysInMonth = (32 - new Date(d.getFullYear(), d.getMonth(), 32).getDate());
-				d = new Date(d.getFullYear(), d.getMonth()-1,nDaysInMonth);
+				d = new Date(d.getFullYear(), d.getMonth(),nDaysInMonth);
 				this.high = d.getTime() + 1000*60*60*24 - 1;
 				break;
 
