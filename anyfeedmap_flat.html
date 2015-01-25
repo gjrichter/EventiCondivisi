@@ -62,6 +62,7 @@
 	</style>
 
 	<link media="screen" href="css/anyfeedmap.css" rel="stylesheet" type="text/css" />
+	<link media="screen"  href="css/anyfeedmap_custom.css" rel="stylesheet" type="text/css" />
 	<link media="print"  href="css/anyfeedmap_print.css" rel="stylesheet" type="text/css" />
 
 	<link media="screen" href="css/messagebox.css" rel="stylesheet" type="text/css" />
@@ -775,8 +776,8 @@
 
 			// + - timeselection within map
 
-			$("#timelapbuttons-date").css("margin-top","0.8em");
-			$("#timelapbuttons-date").css("margin-left","0.5em");
+			$("#timelapbuttons-date").css("margin-top","1em");
+			$("#timelapbuttons-date").css("margin-left","0em");
 			$("#timelapbuttons-date").css("margin-bottom","-5em");
 			$("#headerwrap3-row").css("width","500px");
 
@@ -825,10 +826,10 @@
 				// landscape mode	
 				// -----------------------------------------
 				// map width half
-				$("#map-pane").attr("class","col-lg-6 col-md-6 col-xs-7");
+				$("#map-pane").attr("class","col-lg-6 col-md-7 col-xs-7");
 
 				// sidebar width half
-				$("#sidebar-content").attr("class","col-lg-5 col-md-6 col-xs-5");
+				$("#sidebar-content").attr("class","col-lg-5 col-md-5 col-xs-5");
 				$("#sidebar-content").css("padding","0px");
 
 				if ( width < 800 ){
@@ -958,7 +959,7 @@
 
 	__setMap = function(element){
 		ixmaps.jsapi.setLayerType('Map');
-		$("#header-collection-switch").css("color","#444");
+		$("#header-collection-switch").css("color","#333");
 		$("#header-collection-switch").css("font-weight","normal");
 	};
 

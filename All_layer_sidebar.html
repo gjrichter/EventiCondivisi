@@ -505,6 +505,28 @@ v						parser:{
 						Siti italiani patrimonio UNESCO<span style="font-size:8px;"></span></a>
 					<br><span class="description">formato originale: shapefile --> trasformato: GeoJSON</span>
 				</li><li>
+					<a class="touch" href="javascript:maptune.addFeedLayer('http://cnt.rm.ingv.it/rss.xml',
+						{type:'GeoRSS',
+						 format:'xml',
+						 flag:'zoomto',
+						 layer:
+							{ name: 'INGV -> CNT -> Last locations',
+							  markerType : 'numeric',
+							  markerImageRoot : 'resources/icons/map-icons-collection/numeric/red',
+							  markerImageType : 'png',
+							  initListState : 'noinfo',
+
+							  markerSizeRule: {
+								  source: 'name',
+								  regex : '/Magnitude\\([a-zA-Z]{2}\\) ?(\\b[0-9]+\\.?([0-9]+\\b)?|\\.[0-9]+\\b)?/i',
+								  matchIndex : 1,
+								  normalSizeValue : 4
+								  }
+							}
+						 });" >
+						ultimi 20 terremoti in Italia<span style="font-size:8px;"</span></a>
+					<br><span class="description">INGV -> GeoRSS</span>
+				</li><li>
 					<a href="javascript:maptune.addFeedLayer('http://earthquake.usgs.gov/earthquakes/feed/v0.1/summary/2.5_week.geojson',
 						{type:'USGSEarthquake',
 						 format:'json',

@@ -63,6 +63,8 @@ ixmaps.MapUp = MapUp = function(map,mapDiv,itemDiv,legendDiv) {
 
 	/** holds a Google Maps map object */
 	this.map = map;
+	/** holds a Google Maps map target div */
+	this.mapDiv = mapDiv;
 	/** holds actual pan */
 	this.actualMapCenter = null;
 	/** holds actual zoom */
@@ -1864,7 +1866,7 @@ MapUp.prototype.makeItemListItems = function(layerObj,defaultIcon,markers) {
 			// make regular right part
 			// ------------------------------------------------------------------------------
 
-			szRowContent += "<div class=\"listitem-right\" ><p class=\"item\" style=\"padding-top:5px;\">";
+			szRowContent += "<div class=\"listitem-right\" ><p class=\"item\" >";
 
 			var szTitle = markers[i].properties.name;
 
@@ -1882,7 +1884,7 @@ MapUp.prototype.makeItemListItems = function(layerObj,defaultIcon,markers) {
 			if ( fShowInfoInList ){
 				szRowContent += szTitle;
 			}else{
-				szRowContent += "<div style=\"margin:0px;padding-right:20px;margin-top:-3px;\">"+szTitle+"</div>";
+				szRowContent += "<div class=\"listitem-right-title\">"+szTitle+"</div>";
 
 				if ( !markers[i].gOverlayObject) {
 					szRowContent += "&nbsp;  <a class=\"noprint\" title=\"mostra punto ingrandito\" href=\'#\'><img src='resources/ui/zoomto.png' height='24' style='float:right;margin-top:-5px;margin-right:4px;' /></a>" ;
@@ -3165,9 +3167,9 @@ function _mapup_createMarkerClickHandler(map, marker, layer, info, szMode, i) {
 
 		// calcolate auto clip description by page width
 		//
-		var pageWidth  = parseFloat($(mapDiv).css("width"));
+		var pageWidth  = parseFloat($(_mapUp.mapDiv).css("width"));
 		var mWidth = Math.min(300,pageWidth/3*2);
-		var pageHeight = parseFloat($(mapDiv).css("height"));
+		var pageHeight = parseFloat($(_mapUp.mapDiv).css("height"));
 		var mHeight = Math.min(500,pageHeight/3*2);
 
 		var fDescr = (pageWidth >= 500)?true:false;

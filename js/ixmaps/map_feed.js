@@ -239,12 +239,15 @@ var debug = false;
  * @param opt optional parameter object
  * @type void
  */
+	ixmaps.feed.refreshOptA = [];
 	ixmaps.feed.addFeed = function(szSource,opt,callback){
 
 		// if called by setTimeout(), opt is a string (see below)
 		// ------------------------------------------------------
 		if ( typeof(opt) == "string" ){
-			opt = JSON.parse(opt);
+			console.log(opt);
+			opt = ixmaps.feed.refreshOptA[opt];
+			console.log(opt);
 			// no zoomto after refresh
 			opt.flag = "";
 		}
@@ -266,11 +269,6 @@ var debug = false;
 
 		// GR 23.05.2013 pass url for isLayerOfSource()
 		opt.szSourceUrl = szSource;
-		// refresh option ?
-		// ----------------------------------------------------------------------
-		if ( opt && opt.opt && opt.opt.refresh ){
-			opt.refreshTimeout = setTimeout("ixmaps.feed.addFeed('"+szSource+"','"+JSON.stringify(opt)+"')",opt.opt.refresh*1000);
-		}
 
 		// check origin and get around cross domain restrictions by using a proxy
 		// ----------------------------------------------------------------------
@@ -459,9 +457,16 @@ var debug = false;
 					ixmaps.jsapi.setLayerParam(opt.opt.layer);
 				}
 			}
-			if ( opt.opt.refresh && opt.refreshTimeout ){
-				feedLayer.layers[0].refreshTimeout = opt.refreshTimeout;
+
+			// refresh option ?
+			// ----------------------------------------------------------------------
+			if ( opt.opt.refresh ){
+				// might be changed during former load, therefore reset to original
+				opt.format = opt.opt.format;
+				ixmaps.feed.refreshOptA[opt.szSourceUrl] = opt;
+				feedLayer.layers[0].refreshTimeout = opt.refreshTimeout = setTimeout("ixmaps.feed.addFeed('"+opt.szSourceUrl+"','"+opt.szSourceUrl+"')",opt.opt.refresh*1000);
 			}
+
 		}
 
 		// GR 23.05.2013 pass url

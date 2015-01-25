@@ -8,7 +8,9 @@
  */
 
 body {
-  background-color: #f2f2f2;
+	background-color: #F1EEE8;
+	xbackground-color: #f2f2f2;
+	xbackground-color: #ffffff;
     font-family: 'Lato', sans-serif;
     font-weight: 300;
     font-size: 16px;
@@ -89,7 +91,8 @@ a:after {
 }
 
 .navbar-default {
-	background-color: #3498db;
+	xxbackground-color: #348BCA;
+	background-color: #EF4040;
 	border-color: transparent;
 }
 
@@ -214,18 +217,24 @@ fieldset[disabled] .btn-custom.active {
 @media (min-width: 768px) {
   .container {
     width: 100%;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
   }
 }
 
 @media (min-width: 992px) {
   .container {
     width: 100%;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
   }
 }
 
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 98%;
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }
 

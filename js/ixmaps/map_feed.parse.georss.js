@@ -29,6 +29,16 @@ ixmaps.feed = ixmaps.feed || {};
 ixmaps.feed.parse = ixmaps.feed.parse || {};
 (function() {
 
+	$.fn.filterNode = function(name) {
+		return this.find('*').filter(function() {
+			return this.nodeName === name;
+		});
+	};
+
+	$.fn.filterNodeGetFirst = function(name) {
+		return this.filterNode(name).first().text();
+	};
+
 /**
  * parse the feed data and make an ixmaps layer object  
  * @param the data object received from the feed
@@ -69,9 +79,9 @@ ixmaps.feed.parse = ixmaps.feed.parse || {};
 			var channelLng = null;
 
 			var version = $(data).find('rss').attr("version");
-
+ 
 			$(data).find('channel').each(function(){
-				var title = $(this).find('title:first').text();
+				var title = opt.title||$(this).find('title:first').text();
 				fonte = $(this).find('link:first').text();
 
 				// create ixmaps layerset
@@ -85,30 +95,32 @@ ixmaps.feed.parse = ixmaps.feed.parse || {};
 				layer.properties.fGallery = false;
 				layer.properties.open = "1";
 
-				// get a channel geo position, if defined
-				// GeoRSS 1.0
-				if ( version && version.match(/1.0/) ){
-					var pointA = $(this).find('georss:point,point').text().split(" ");
-					channelLat = pointA[1];
-					channelLng = pointA[0];
-				}else
-				// GeoRSS 2.0
-				if ( version && version.match(/2.0/) ){
-					channelLat = $(this).find('geo:lat,lat').text();
-					channelLng = $(this).find('geo:long,long').text();
-				}else				
-				// GeoRSS 1.0
-				if ( $(this).find('georss:point,point').text().length ){
-					var pointA = $(this).find('georss:point,point').text().split(" ");
-					channelLat = pointA[1];
-					channelLng = pointA[0];
-				}else
-				// GeoRSS 2.0
-				if ( $(this).find('geo:lat,lat').text().length ){
-					channelLat = $(this).find('geo:lat,lat').text();
-					channelLng = $(this).find('geo:long,long').text();
-				}				
-			
+				if ( $(this).filterNodeGetFirst ){
+
+					// get a channel geo position, if defined
+					// GeoRSS 1.0
+					if ( version && version.match(/1.0/) && $(this).filterNodeGetFirst ){
+						var pointA = $(this).filterNodeGetFirst('georss:point').split(" ");
+						channelLat = pointA[1];
+						channelLng = pointA[0];
+					}else
+					// GeoRSS 2.0
+					if ( version && version.match(/2.0/) ){
+						channelLat = $(this).filterNodeGetFirst('geo:lat');
+						channelLng = $(this).filterNodeGetFirst('geo:long');
+					}else				
+					// GeoRSS 1.0
+					if ( $(this).filterNodeGetFirst('georss:point').length ){
+						var pointA = $(this).filterNodeGetFirst('georss:point').split(" ");
+						channelLat = pointA[1];
+						channelLng = pointA[0];
+					}else
+					// GeoRSS 2.0
+					if ( $(this).filterNodeGetFirst('geo:lat').length ){
+						channelLat = $(this).filterNodeGetFirst('geo:lat');
+						channelLng = $(this).filterNodeGetFirst('geo:long');
+					}				
+				}			
 			});
 
 			var i=0;
@@ -122,6 +134,7 @@ ixmaps.feed.parse = ixmaps.feed.parse || {};
 				var szTitle		= $(this).find('title:first').text();
 				var szLink		= $(this).find('link:first').text();
 				var szDate		= $(this).find('pubDate').text();
+				    szDate		= $(this).find('dc:date').text();
 				// test
 				if ( $(this).find('category') )	{
 					var szCategory	= $(this).find('category').text();
@@ -164,50 +177,53 @@ ixmaps.feed.parse = ixmaps.feed.parse || {};
 					feature.properties.category		= szCategory;
 					feature.properties.legenditem	= "Piceno News";
 
-					var d = new Date(szDate);
-					feature.properties.utime = d.getTime();
+				var d = new Date(szDate);
+				feature.properties.utime = d.getTime();
 
-					// search date within description 
-					// ------------------------------
-					var dateA = new Array();
-					while( szText.length ){ 
-						var index = szText.search(/([0-2]\d|[3][0-1])\/([0]\d|[1][0-9])\/([1-2]\d|[0-9][0-9][0-9])/);
-						if ( index > 0 ){
-							dateA.push(szText.substr(index,10).split('/'));
-							szText = szText.substr(index+10,szText.length-index-10);
-						}else{
-							szText = "";
-						}
+				// search date within description 
+				// ------------------------------
+				var dateA = new Array();
+				while( szText.length ){ 
+					var index = szText.search(/([0-2]\d|[3][0-1])\/([0]\d|[1][0-9])\/([1-2]\d|[0-9][0-9][0-9])/);
+					if ( index > 0 ){
+						dateA.push(szText.substr(index,10).split('/'));
+						szText = szText.substr(index+10,szText.length-index-10);
+					}else{
+						szText = "";
 					}
-					if ( dateA.length && (dateA[0][2].length == 4) ){
-						var d1 =  new Date(dateA[0][2],dateA[0][1]-1,dateA[0][0]);
-						feature.properties.utime = d1.getTime();
-					}
+				}
+				if ( dateA.length && (dateA[0][2].length == 4) ){
+					var d1 =  new Date(dateA[0][2],dateA[0][1]-1,dateA[0][0]);
+					feature.properties.utime = d1.getTime();
+				}
+
+				if ( $(this).filterNodeGetFirst ){
+
 					// GeoRSS 2.0 gml
-					if ( $(this).find('gml:pos,pos').text().length ){
-						var pointA = $(this).find('gml:pos,pos').text().split(" ");
+					if ( $(this).filterNodeGetFirst('gml:pos').length ){
+						var pointA = $(this).filterNodeGetFirst('gml:pos').split(" ");
 						feature.setPosition(pointA[1],pointA[0]);
 					}else
 					// GeoRSS 1.0
-					if ( $(this).find('georss:point,point').text().length ){
-						var pointA = $(this).find('georss:point,point').text().split(" ");
+					if ( $(this).filterNodeGetFirst('georss:point').length ){
+						var pointA = $(this).filterNodeGetFirst('georss:point').split(" ");
 						feature.setPosition(pointA[1],pointA[0]);
 					}else
 					// GeoRSS 2.0
-					if ( $(this).find('geo:lat,lat').text().length ){
-						var lat = $(this).find('geo:lat,lat').text();
-						var lng = $(this).find('geo:long,long').text();
+					if ( $(this).filterNodeGetFirst('geo:lat').length ){
+						var lat = $(this).filterNodeGetFirst('geo:lat');
+						var lng = $(this).filterNodeGetFirst('geo:long');
 						feature.setPosition(lng,lat);
 					}else
 					// GeoRSS 1.0
 					if ( version && version.match(/1.0/) ){
-						var pointA = $(this).find('georss:point,point').text().split(" ");
+						var pointA = $(this).filterNodeGetFirst('georss:point').split(" ");
 						feature.setPosition(pointA[1],pointA[0]);
 					}else
 					// GeoRSS 2.0
 					if ( version && version.match(/2.0/) ){
-						var lat = $(this).find('geo:lat,lat').text();
-						var lng = $(this).find('geo:long,long').text();
+						var lat = $(this).filterNodeGetFirst('geo:lat').text();
+						var lng = $(this).filterNodeGetFirst('geo:long').text();
 						feature.setPosition(lng,lat);
 					}else
 					// default = channel position, if defined
@@ -217,7 +233,7 @@ ixmaps.feed.parse = ixmaps.feed.parse || {};
 					// we don't have a position
 						ixmaps.feed.unresolvedPosition++;
 					}
-
+				}
 				i++;
 
 			});
@@ -243,7 +259,7 @@ ixmaps.feed.parse = ixmaps.feed.parse || {};
 
 			$(data).find('feed').each(function(){
 
-				var title = $(this).find('title:first').text();
+				var title = opt.title||$(this).find('title:first').text();
 				fonte = $(this).find('link:first').text();
 
 				// create ixmaps layerset
@@ -258,21 +274,21 @@ ixmaps.feed.parse = ixmaps.feed.parse || {};
 				layer.properties.open = "1";
 
 				// GeoRSS 2.0 gml
-				if ( $(this).find('gml:pos,pos').text().length ){
-					var pointA = $(this).find('gml:pos,pos').text().split(" ");
+				if ( $(this).filterNodeGetFirst('gml:pos').length ){
+					var pointA = $(this).filterNodeGetFirst('gml:pos').split(" ");
 					channelLat = pointA[1];
 					channelLng = pointA[0];
 				}else
 				// GeoRSS 1.0
-				if ( $(this).find('georss:point,point').text().length ){
-					var pointA = $(this).find('georss:point,point').text().split(" ");
+				if ( $(this).filterNodeGetFirst('georss:point').length ){
+					var pointA = $(this).filterNodeGetFirst('georss:point').split(" ");
 					channelLat = pointA[1];
 					channelLng = pointA[0];
 				}else
 				// GeoRSS 2.0
-				if ( $(this).find('geo:lat,lat').text().length ){
-					var lat = $(this).find('geo:lat,lat').text();
-					var lng = $(this).find('geo:long,long').text();
+				if ( $(this).filterNodeGetFirst('geo:lat').length ){
+					var lat = $(this).filterNodeGetFirst('geo:lat');
+					var lng = $(this).filterNodeGetFirst('geo:long');
 					channelLat = pointA[1];
 					channelLng = pointA[0];
 				}
@@ -347,30 +363,30 @@ ixmaps.feed.parse = ixmaps.feed.parse || {};
 						feature.properties.utime = d1.getTime();
 					}
 					// GeoRSS 2.0 gml
-					if ( $(this).find('gml:pos,pos').text().length ){
-						var pointA = $(this).find('gml:pos,pos').text().split(" ");
+					if ( $(this).filterNodeGetFirst('gml:pos').length ){
+						var pointA = $(this).filterNodeGetFirst('gml:pos').split(" ");
 						feature.setPosition(pointA[1],pointA[0]);
 					}else
 					// GeoRSS 1.0
-					if ( $(this).find('georss:point,point').text().length ){
-						var pointA = $(this).find('georss:point,point').text().split(" ");
+					if ( $(this).filterNodeGetFirst('georss:point').length ){
+						var pointA = $(this).filterNodeGetFirst('georss:point').split(" ");
 						feature.setPosition(pointA[1],pointA[0]);
 					}else
 					// GeoRSS 2.0
-					if ( $(this).find('geo:lat,lat').text().length ){
-						var lat = $(this).find('geo:lat,lat').text();
-						var lng = $(this).find('geo:long,long').text();
+					if ( $(this).filterNodeGetFirst('geo:lat').find().text().length ){
+						var lat = $(this).filterNodeGetFirst('geo:lat');
+						var lng = $(this).filterNodeGetFirst('geo:long').first.text();
 						feature.setPosition(lng,lat);
 					}else
 					// GeoRSS 1.0
 					if ( version && version.match(/1.0/) ){
-						var pointA = $(this).find('georss:point,point').text().split(" ");
+						var pointA = $(this).filterNodeGetFirst('georss:point').split(" ");
 						feature.setPosition(pointA[1],pointA[0]);
 					}else
 					// GeoRSS 2.0
 					if ( version && version.match(/2.0/) ){
-						var lat = $(this).find('geo:lat,lat').text();
-						var lng = $(this).find('geo:long,long').text();
+						var lat = $(this).filterNodeGetFirst('geo:lat');
+						var lng = $(this).filterNodeGetFirst('geo:long');
 						feature.setPosition(lng,lat);
 					}else
 					// default = channel position, if defined
